@@ -1099,6 +1099,15 @@
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
 
+      // Validate required fields
+      const fname = form.querySelector('#fname').value.trim();
+      const email = form.querySelector('#email').value.trim();
+      if (!fname || !email) {
+        form.querySelector('#fname').style.borderColor = !fname ? 'rgba(232,100,12,0.8)' : '';
+        form.querySelector('#email').style.borderColor = !email ? 'rgba(232,100,12,0.8)' : '';
+        return;
+      }
+
       const btn = form.querySelector('button[type="submit"]');
       btn.textContent = 'Sending…';
       btn.style.opacity = '0.7';
@@ -1106,8 +1115,6 @@
 
       const data = Object.fromEntries(new FormData(form));
 
-      // ── OPTION A: Formspree (recommended — see deployment notes)
-      // Replace YOUR_FORM_ID with your Formspree form ID
       const FORMSPREE_ID = 'mkoypbgy';
 
       try {
@@ -1124,15 +1131,10 @@
           throw new Error('Form submission failed');
         }
       } catch {
-        // Fallback: open mail client
-        const subject = encodeURIComponent('OpenFlame AI Inquiry — ' + (data.business || data.first_name));
-        const body = encodeURIComponent(
-          `Name: ${data.first_name} ${data.last_name}\nEmail: ${data.email}\nBusiness: ${data.business}\nType: ${data.business_type}\n\n${data.message}`
-        );
-        window.location.href = `mailto:hello@openflame-ai.com?subject=${subject}&body=${body}`;
         btn.textContent = 'Send Inquiry';
         btn.style.opacity = '1';
         btn.disabled = false;
+        alert('Something went wrong. Please email us directly at eesa.aleesa@openflame-ai.com');
       }
     });
 
