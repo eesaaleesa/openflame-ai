@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ember Flow Yoga · Alberta Arts District · NE Portland</title>
+<meta name="description" content="A small, neighborhood yoga studio in the Alberta Arts District of NE Portland. Flow, restorative, and beginner-friendly classes seven days a week.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: #F5EDDE;
+    color: #1F1F1F;
+    font-family: 'Inter', -apple-system, sans-serif;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+  .container { max-width: 1000px; margin: 0 auto; padding: 0 24px; }
+
+  nav {
+    background: #F5EDDE;
+    padding: 16px 24px;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    border-bottom: 1px solid rgba(92,139,131,0.15);
+  }
+  nav .nav-inner {
+    max-width: 1000px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  nav .brand {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: 22px;
+    font-weight: 600;
+    color: #1F1F1F;
+    text-decoration: none;
+    letter-spacing: 1px;
+  }
+  nav ul {
+    list-style: none;
+    display: flex;
+    gap: 28px;
+    flex-wrap: wrap;
+  }
+  nav a {
+    color: #1F1F1F;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    transition: color 0.2s;
+  }
+  nav a:hover { color: #5C8B83; }
+
+  .banner {
+    width: 100%;
+    display: block;
+    margin: 0 auto;
+  }
+  .banner img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  section { padding: 72px 24px; }
+  section h2 {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: 40px;
+    font-weight: 600;
+    color: #1F1F1F;
+    text-align: center;
+    margin-bottom: 16px;
+    letter-spacing: 0.5px;
+  }
+  section .eyebrow {
+    text-align: center;
+    color: #5C8B83;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 8px;
+  }
+
+  .hero {
+    text-align: center;
+    padding: 64px 24px 40px;
+  }
+  .hero h1 {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: 56px;
+    font-weight: 600;
+    color: #1F1F1F;
+    letter-spacing: 0.5px;
+    margin-bottom: 16px;
+    line-height: 1.1;
+  }
+  .hero p.subhead {
+    font-size: 18px;
+    color: #4A4A4A;
+    max-width: 620px;
+    margin: 0 auto 32px;
+  }
+  .hero .cta-row {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  .btn-primary {
+    background: #E89B3C;
+    color: #FFFFFF;
+    padding: 14px 32px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: background 0.2s;
+    display: inline-block;
+  }
+  .btn-primary:hover { background: #D2862A; }
+  .btn-secondary {
+    background: transparent;
+    color: #5C8B83;
+    padding: 14px 32px;
+    border: 1.5px solid #5C8B83;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: all 0.2s;
+    display: inline-block;
+  }
+  .btn-secondary:hover { background: #5C8B83; color: #F5EDDE; }
+
+  .about {
+    background: #FFFFFF;
+  }
+  .about-grid {
+    max-width: 800px;
+    margin: 32px auto 0;
+    text-align: center;
+    color: #3A3A3A;
+    font-size: 17px;
+  }
+  .about-grid p { margin-bottom: 20px; }
+
+  .offerings-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 24px;
+    margin-top: 48px;
+    max-width: 1000px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .offering {
+    background: #FFFFFF;
+    padding: 32px 28px;
+    border-radius: 8px;
+    text-align: center;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+  }
+  .offering .icon {
+    width: 48px;
+    height: 48px;
+    background: #5C8B83;
+    color: #F5EDDE;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 18px;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 24px;
+    font-weight: 600;
+  }
+  .offering h3 {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: 24px;
+    font-weight: 600;
+    margin-bottom: 10px;
+    color: #1F1F1F;
+  }
+  .offering p {
+    color: #4A4A4A;
+    font-size: 15px;
+  }
+
+  .instructors {
+    background: #FFFFFF;
+  }
+  .instructor-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 32px;
+    margin-top: 48px;
+  }
+  .instructor {
+    text-align: center;
+  }
+  .instructor .avatar {
+    width: 100px;
+    height: 100px;
+    background: #5C8B83;
+    color: #F5EDDE;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 16px;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 36px;
+    font-weight: 600;
+  }
+  .instructor h3 {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: 22px;
+    font-weight: 600;
+    margin-bottom: 4px;
+  }
+  .instructor .style {
+    color: #E89B3C;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 600;
+    margin-bottom: 12px;
+  }
+  .instructor p {
+    color: #4A4A4A;
+    font-size: 14px;
+  }
+
+  .schedule-cta {
+    text-align: center;
+    background: #5C8B83;
+    color: #F5EDDE;
+    padding: 64px 24px;
+  }
+  .schedule-cta h2 {
+    color: #F5EDDE;
+    margin-bottom: 16px;
+  }
+  .schedule-cta p {
+    max-width: 540px;
+    margin: 0 auto 28px;
+    font-size: 17px;
+    color: #F5EDDE;
+    opacity: 0.95;
+  }
+  .schedule-cta .btn-primary {
+    background: #E89B3C;
+  }
+
+  .pricing-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 24px;
+    margin-top: 48px;
+    max-width: 900px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .price-card {
+    background: #FFFFFF;
+    padding: 36px 28px;
+    border-radius: 8px;
+    text-align: center;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+  }
+  .price-card.featured {
+    border: 2px solid #E89B3C;
+    position: relative;
+  }
+  .price-card.featured::before {
+    content: 'Most Popular';
+    position: absolute;
+    top: -12px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #E89B3C;
+    color: #FFFFFF;
+    padding: 4px 16px;
+    border-radius: 20px;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 600;
+  }
+  .price-card h3 {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: 24px;
+    font-weight: 600;
+    margin-bottom: 8px;
+  }
+  .price-card .price {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: 44px;
+    font-weight: 600;
+    color: #1F1F1F;
+    margin-bottom: 4px;
+  }
+  .price-card .period {
+    color: #6E6E6E;
+    font-size: 14px;
+    margin-bottom: 20px;
+  }
+  .price-card ul {
+    list-style: none;
+    margin-bottom: 24px;
+    text-align: left;
+  }
+  .price-card li {
+    padding: 8px 0;
+    color: #3A3A3A;
+    font-size: 14px;
+    border-bottom: 1px solid #F5EDDE;
+  }
+  .price-card li:last-child { border-bottom: none; }
+  .price-card li::before {
+    content: '✓';
+    color: #5C8B83;
+    font-weight: 600;
+    margin-right: 8px;
+  }
+
+  .contact {
+    background: #FFFFFF;
+    text-align: center;
+  }
+  .contact-info {
+    max-width: 500px;
+    margin: 32px auto 0;
+    font-size: 17px;
+    color: #3A3A3A;
+  }
+  .contact-info p { margin-bottom: 16px; }
+  .contact-info a { color: #5C8B83; text-decoration: none; font-weight: 600; }
+
+  footer {
+    background: #1F1F1F;
+    color: #F5EDDE;
+    text-align: center;
+    padding: 40px 24px;
+    font-size: 13px;
+    line-height: 1.8;
+  }
+  footer a { color: #E89B3C; text-decoration: none; }
+
+  @media (max-width: 700px) {
+    .hero h1 { font-size: 38px; }
+    section h2 { font-size: 30px; }
+    section { padding: 56px 24px; }
+    nav ul { gap: 18px; font-size: 13px; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="#" class="brand">EMBER FLOW YOGA</a>
+    <ul>
+      <li><a href="#about">About</a></li>
+      <li><a href="#offerings">Offerings</a></li>
+      <li><a href="#instructors">Instructors</a></li>
+      <li><a href="schedule.html">Schedule</a></li>
+      <li><a href="#pricing">Pricing</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<div class="banner">
+  <img src="https://openflame-ai.com/clients/ember-flow-yoga/ember-flow-yoga_email-banner.jpg" alt="Ember Flow Yoga studio">
+</div>
+
+<section class="hero">
+  <h1>A small studio.<br>A real practice.</h1>
+  <p class="subhead">
+    Tucked into the Alberta Arts District in NE Portland, Ember Flow is a neighborhood
+    yoga studio built for slow mornings, midweek resets, and quiet Sundays.
+    Come breathe with us.
+  </p>
+  <div class="cta-row">
+    <a href="schedule.html" class="btn-primary">See the Schedule</a>
+    <a href="mailto:emberflowyoga7@gmail.com?subject=First%20Class%20Free" class="btn-secondary">Free First Class</a>
+  </div>
+</section>
+
+<section class="about" id="about">
+  <p class="eyebrow">Our Studio</p>
+  <h2>What we're about</h2>
+  <div class="about-grid">
+    <p>
+      Ember Flow was founded on a simple idea: yoga should feel like coming home,
+      not auditioning. We're not a brand. We're a small studio on Alberta Street
+      with good floors, warm light, and teachers who learn your name.
+    </p>
+    <p>
+      The room holds about twenty people on a full night. You'll see the same faces
+      across a season. You'll find a teacher who fits your body. You'll figure out
+      that yoga is mostly about paying attention to what's already happening.
+    </p>
+    <p>
+      Beginners belong in every class on our schedule — no separate room, no separate time.
+      Just here, with everyone else, figuring it out together.
+    </p>
+  </div>
+</section>
+
+<section id="offerings">
+  <p class="eyebrow">What We Offer</p>
+  <h2>Classes for every kind of week</h2>
+  <div class="offerings-grid">
+    <div class="offering">
+      <div class="icon">F</div>
+      <h3>Flow</h3>
+      <p>Vinyasa-based movement that builds heat without rushing. Slow Flow, Power Flow, and everything in between.</p>
+    </div>
+    <div class="offering">
+      <div class="icon">R</div>
+      <h3>Restorative</h3>
+      <p>Long-held, fully supported postures with bolsters and blankets. For the weeks that asked too much.</p>
+    </div>
+    <div class="offering">
+      <div class="icon">Y</div>
+      <h3>Yin</h3>
+      <p>Deep, quiet, floor-based practice that meets your connective tissue where it actually lives.</p>
+    </div>
+    <div class="offering">
+      <div class="icon">B</div>
+      <h3>Beginner Friendly</h3>
+      <p>Every class on our schedule is appropriate for beginners. Some are designed specifically for you.</p>
+    </div>
+  </div>
+</section>
+
+<section class="instructors" id="instructors">
+  <p class="eyebrow">Our Teachers</p>
+  <h2>People who'll know your name</h2>
+  <div class="instructor-grid">
+    <div class="instructor">
+      <div class="avatar">M</div>
+      <h3>Maya</h3>
+      <div class="style">Flow · Vinyasa</div>
+      <p>Founder of Ember Flow. Twelve years of teaching, twenty of practice. Lives for sunrise classes.</p>
+    </div>
+    <div class="instructor">
+      <div class="avatar">J</div>
+      <h3>Jordan</h3>
+      <div class="style">Slow Flow · Mobility</div>
+      <p>Background in physical therapy. Teaches like the body is something to listen to, not fix.</p>
+    </div>
+    <div class="instructor">
+      <div class="avatar">P</div>
+      <h3>Priya</h3>
+      <div class="style">Beginner · Gentle</div>
+      <p>The teacher you want for your first class. Warm, attentive, completely free of judgment.</p>
+    </div>
+    <div class="instructor">
+      <div class="avatar">T</div>
+      <h3>Theo</h3>
+      <div class="style">Power Flow</div>
+      <p>Brings the heat without the ego. Strong, smart sequences for people who like to sweat.</p>
+    </div>
+    <div class="instructor">
+      <div class="avatar">S</div>
+      <h3>Sage</h3>
+      <div class="style">Yin · Restorative</div>
+      <p>Holds the room like a long exhale. Candlelight classes are their specialty.</p>
+    </div>
+  </div>
+</section>
+
+<section class="schedule-cta">
+  <h2>This week on the mat</h2>
+  <p>Seven days a week, mornings and evenings, with space for whatever your body's asking for.</p>
+  <a href="schedule.html" class="btn-primary">View Full Schedule</a>
+</section>
+
+<section id="pricing">
+  <p class="eyebrow">Pricing</p>
+  <h2>Simple, fair, honest</h2>
+  <div class="pricing-grid">
+    <div class="price-card">
+      <h3>Drop In</h3>
+      <div class="price">$22</div>
+      <div class="period">per class</div>
+      <ul>
+        <li>Any class on the schedule</li>
+        <li>No commitment</li>
+        <li>First class free for new students</li>
+      </ul>
+      <a href="mailto:emberflowyoga7@gmail.com?subject=Drop%20In%20Class" class="btn-secondary">Book</a>
+    </div>
+    <div class="price-card featured">
+      <h3>Monthly Unlimited</h3>
+      <div class="price">$159</div>
+      <div class="period">per month</div>
+      <ul>
+        <li>Unlimited classes</li>
+        <li>Cancel anytime</li>
+        <li>Workshop discounts</li>
+        <li>Bring a friend free monthly</li>
+      </ul>
+      <a href="mailto:emberflowyoga7@gmail.com?subject=Monthly%20Unlimited%20Membership" class="btn-primary">Join</a>
+    </div>
+    <div class="price-card">
+      <h3>10-Class Pack</h3>
+      <div class="price">$185</div>
+      <div class="period">no expiration</div>
+      <ul>
+        <li>10 classes, your pace</li>
+        <li>Transferable to family</li>
+        <li>Best for occasional practice</li>
+      </ul>
+      <a href="mailto:emberflowyoga7@gmail.com?subject=10-Class%20Pack" class="btn-secondary">Purchase</a>
+    </div>
+  </div>
+</section>
+
+<section class="contact" id="contact">
+  <p class="eyebrow">Visit Us</p>
+  <h2>Come breathe with us</h2>
+  <div class="contact-info">
+    <p>Alberta Arts District<br>NE Portland, Oregon</p>
+    <p><a href="mailto:emberflowyoga7@gmail.com">emberflowyoga7@gmail.com</a></p>
+    <p style="margin-top:24px;">
+      <a href="schedule.html" class="btn-primary">Book Your First Class</a>
+    </p>
+  </div>
+</section>
+
+<footer>
+  Ember Flow Yoga<br>
+  Alberta Arts District · NE Portland · <a href="mailto:emberflowyoga7@gmail.com">emberflowyoga7@gmail.com</a><br>
+  <span style="opacity:0.7;font-size:12px;">© 2026 Ember Flow Yoga</span>
+</footer>
+
+</body>
+</html>
