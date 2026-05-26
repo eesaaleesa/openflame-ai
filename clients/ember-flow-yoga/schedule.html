@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Class Schedule · Ember Flow Yoga · NE Portland</title>
+<meta name="description" content="Weekly class schedule for Ember Flow Yoga in the Alberta Arts District, NE Portland. Flow, restorative, and beginner-friendly yoga classes seven days a week.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: #F5EDDE;
+    color: #1F1F1F;
+    font-family: 'Inter', -apple-system, sans-serif;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  .container { max-width: 880px; margin: 0 auto; padding: 0 24px; }
+
+  header {
+    text-align: center;
+    padding: 56px 24px 32px;
+  }
+  header img {
+    max-width: 140px;
+    height: auto;
+    margin-bottom: 24px;
+  }
+  header h1 {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: 44px;
+    font-weight: 500;
+    color: #1F1F1F;
+    letter-spacing: 0.5px;
+    margin-bottom: 8px;
+  }
+  header p.tagline {
+    font-size: 14px;
+    color: #5C8B83;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-weight: 500;
+  }
+
+  .intro {
+    text-align: center;
+    max-width: 600px;
+    margin: 0 auto 48px;
+    padding: 0 24px;
+    color: #4A4A4A;
+    font-size: 16px;
+  }
+
+  .day-block {
+    margin-bottom: 32px;
+    background: #FFFFFF;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+  }
+  .day-header {
+    background: #5C8B83;
+    color: #F5EDDE;
+    padding: 16px 28px;
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: 24px;
+    font-weight: 600;
+    letter-spacing: 1px;
+  }
+  .class-row {
+    display: flex;
+    align-items: center;
+    padding: 18px 28px;
+    border-bottom: 1px solid #F5EDDE;
+    gap: 20px;
+  }
+  .class-row:last-child { border-bottom: none; }
+  .class-time {
+    font-weight: 600;
+    color: #1F1F1F;
+    min-width: 100px;
+    font-size: 15px;
+  }
+  .class-details {
+    flex: 1;
+  }
+  .class-name {
+    font-weight: 600;
+    font-size: 16px;
+    color: #1F1F1F;
+    margin-bottom: 2px;
+  }
+  .class-meta {
+    font-size: 13px;
+    color: #6E6E6E;
+  }
+  .book-btn {
+    background: #E89B3C;
+    color: #FFFFFF;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 6px;
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    font-size: 13px;
+    text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: background 0.2s;
+    white-space: nowrap;
+  }
+  .book-btn:hover { background: #D2862A; }
+
+  .info-section {
+    background: #FFFFFF;
+    border-radius: 8px;
+    padding: 32px;
+    margin: 48px 0;
+    text-align: center;
+  }
+  .info-section h2 {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: 28px;
+    font-weight: 600;
+    margin-bottom: 12px;
+    color: #1F1F1F;
+  }
+  .info-section p {
+    color: #4A4A4A;
+    margin-bottom: 16px;
+  }
+  .info-section .first-class {
+    display: inline-block;
+    background: #E89B3C;
+    color: #FFFFFF;
+    padding: 14px 32px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 14px;
+    margin-top: 8px;
+  }
+
+  footer {
+    text-align: center;
+    padding: 40px 24px 56px;
+    color: #6E6E6E;
+    font-size: 13px;
+    line-height: 1.8;
+  }
+  footer a { color: #5C8B83; text-decoration: none; }
+
+  @media (max-width: 600px) {
+    header h1 { font-size: 32px; }
+    .class-row {
+      flex-wrap: wrap;
+      padding: 16px 20px;
+    }
+    .class-time { min-width: auto; width: 100%; margin-bottom: 4px; }
+    .book-btn { width: 100%; text-align: center; margin-top: 8px; }
+    .day-header { font-size: 20px; padding: 14px 20px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <img src="https://openflame-ai.com/clients/ember-flow-yoga/logo.png" alt="Ember Flow Yoga">
+  <h1>Class Schedule</h1>
+  <p class="tagline">Alberta Arts District · NE Portland</p>
+</header>
+
+<div class="container">
+
+  <p class="intro">
+    Seven days a week, we hold space for slow mornings, midweek resets, and quiet Sundays.
+    Every class is appropriate for beginners. Come as you are.
+  </p>
+
+  <div class="day-block">
+    <div class="day-header">Monday</div>
+    <div class="class-row">
+      <div class="class-time">6:30 AM</div>
+      <div class="class-details">
+        <div class="class-name">Sunrise Flow</div>
+        <div class="class-meta">60 min · All levels · with Maya</div>
+      </div>
+      <a href="mailto:emberflowyoga7@gmail.com?subject=Book%20Sunrise%20Flow%20Monday" class="book-btn">Book</a>
+    </div>
+    <div class="class-row">
+      <div class="class-time">12:00 PM</div>
+      <div class="class-details">
+        <div class="class-name">Lunchtime Slow Flow</div>
+        <div class="class-meta">45 min · All levels · with Jordan</div>
+      </div>
+      <a href="mailto:emberflowyoga7@gmail.com?subject=Book%20Lunchtime%20Slow%20Flow%20Monday" class="book-btn">Book</a>
+    </div>
+    <div class="class-row">
+      <div class="class-time">6:00 PM</div>
+      <div class="class-details">
+        <div class="class-name">Power Flow</div>
+        <div class="class-meta">75 min · Intermediate · with Theo</div>
+      </div>
+      <a href="mailto:emberflowyoga7@gmail.com?subject=Book%20Power%20Flow%20Monday" class="book-btn">Book</a>
+    </div>
+  </div>
+
+  <div class="day-block">
+    <div class="day-header">Tuesday</div>
+    <div class="class-row">
+      <div class="class-time">7:00 AM</div>
+      <div class="class-details">
+        <div class="class-name">Morning Vinyasa</div>
+        <div class="class-meta">60 min · All levels · with Maya</div>
+      </div>
+      <a href="mailto:emberflowyoga7@gmail.com?subject=Book%20Morning%20Vinyasa%20Tuesday" class="book-btn">Book</a>
+    </div>
+    <div class="class-row">
+      <div class="class-time">5:30 PM</div>
+      <div class="class-details">
+        <div class="class-name">Gentle Flow</div>
+        <div class="class-meta">60 min · Beginner friendly · with Priya</div>
+      </div>
+      <a href="mailto:emberflowyoga7@gmail.com?subject=Book%20Gentle%20Flow%20Tuesday" class="book-btn">Book</a>
+    </div>
+    <div class="class-row">
+      <div class="class-time">7:00 PM</div>
+      <div class="class-details">
+        <div class="class-name">Candlelight Yin</div>
+        <div class="class-meta">75 min · All levels · with Sage</div>
+      </div>
+      <a href="mailto:emberflowyoga7@gmail.com?subject=Book%20Candlelight%20Yin%20Tuesday" class="book-btn">Book</a>
+    </div>
+  </div>
+
+  <div class="day-block">
+    <div class="day-header">Wednesday</div>
+    <div class="class-row">
+      <div class="class-time">6:30 AM</div>
+      <div class="class-details">
+        <div class="class-name">Wake & Flow</div>
+        <div class="class-meta">60 min · All levels · with Jordan</div>
+      </div>
+      <a href="mailto:emberflowyoga7@gmail.com?subject=Book%20Wake%20%26%20Flow%20Wednesday" class="book-btn">Book</a>
+    </div>
+    <div class="class-row">
+      <div class="class-time">12:00 PM</div>
+      <div class="class-details">
+        <div class="class-name">Midday Mobility</div>
+        <div class="class-meta">45 min · All levels · with Theo</div>
+      </div>
+      <a href="mailto:emberflowyoga7@gmail.com?subject=Book%20Midday%20Mobility%20Wednesday" class="book-btn">Book</a>
+    </div>
+    <div class="class-row">
+      <div class="class-time">6:00 PM</div>
+      <div class="class-details">
+        <div class="class-name">Slow Flow</div>
+        <div class="class-meta">60 min · All levels · with Maya</div>
+      </div>
+      <a href="mailto:emberflowyoga7@gmail.com?subject=Book%20Slow%20Flow%20Wednesday" class="book-btn">Book</a>
+    </div>
+  </div>
+
+  <div class="day-block">
+    <div class="day-header">Thursday</div>
+    <div class="class-row">
+      <div class="class-time">7:00 AM</div>
+      <div class="class-details">
+        <div class="class-name">Sunrise Flow</div>
+        <div class="class-meta">60 min · All levels · with Priya</div>
+      </div>
+      <a href="mailto:emberflowyoga7@gmail.com?subject=Book%20Sunrise%20Flow%20Thursday" class="book-btn">Book</a>
+    </div>
+    <div class="class-row">
+      <div class="class-time">5:30 PM</div>
+      <div class="class-details">
+        <div class="class-name">Power Flow</div>
+        <div class="class-meta">75 min · Intermediate · with Theo</div>
+      </div>
+      <a href="mailto:emberflowyoga7@gmail.com?subject=Book%20Power%20Flow%20Thursday" class="book-btn">Book</a>
+    </div>
+    <div class="class-row">
+      <div class="class-time">7:15 PM</div>
+      <div class="class-details">
+        <div class="class-name">Restorative</div>
+        <div class="class-meta">75 min · All levels · with Sage</div>
+      </div>
+      <a href="mailto:emberflowyoga7@gmail.com?subject=Book%20Restorative%20Thursday" class="book-btn">Book</a>
+    </div>
+  </div>
+
+  <div class="day-block">
+    <div class="day-header">Friday</div>
+    <div class="class-row">
+      <div class="class-time">6:30 AM</div>
+      <div class="class-details">
+        <div class="class-name">Morning Flow</div>
+        <div class="class-meta">60 min · All levels · with Maya</div>
+      </div>
+      <a href="mailto:emberflowyoga7@gmail.com?subject=Book%20Morning%20Flow%20Friday" class="book-btn">Book</a>
+    </div>
+    <div class="class-row">
+      <div class="class-time">12:00 PM</div>
+      <div class="class-details">
+        <div class="class-name">Lunchtime Slow Flow</div>
+        <div class="class-meta">45 min · All levels · with Jordan</div>
+      </div>
+      <a href="mailto:emberflowyoga7@gmail.com?subject=Book%20Lunchtime%20Slow%20Flow%20Friday" class="book-btn">Book</a>
+    </div>
+    <div class="class-row">
+      <div class="class-time">5:30 PM</div>
+      <div class="class-details">
+        <div class="class-name">Unwind Yin</div>
+        <div class="class-meta">75 min · All levels · with Sage</div>
+      </div>
+      <a href="mailto:emberflowyoga7@gmail.com?subject=Book%20Unwind%20Yin%20Friday" class="book-btn">Book</a>
+    </div>
+  </div>
+
+  <div class="day-block">
+    <div class="day-header">Saturday</div>
+    <div class="class-row">
+      <div class="class-time">8:00 AM</div>
+      <div class="class-details">
+        <div class="class-name">Weekend Flow</div>
+        <div class="class-meta">75 min · All levels · with Maya</div>
+      </div>
+      <a href="mailto:emberflowyoga7@gmail.com?subject=Book%20Weekend%20Flow%20Saturday" class="book-btn">Book</a>
+    </div>
+    <div class="class-row">
+      <div class="class-time">10:00 AM</div>
+      <div class="class-details">
+        <div class="class-name">Beginner-Friendly Vinyasa</div>
+        <div class="class-meta">60 min · Beginner · with Priya</div>
+      </div>
+      <a href="mailto:emberflowyoga7@gmail.com?subject=Book%20Beginner%20Vinyasa%20Saturday" class="book-btn">Book</a>
+    </div>
+    <div class="class-row">
+      <div class="class-time">4:00 PM</div>
+      <div class="class-details">
+        <div class="class-name">Slow Flow & Stretch</div>
+        <div class="class-meta">60 min · All levels · with Jordan</div>
+      </div>
+      <a href="mailto:emberflowyoga7@gmail.com?subject=Book%20Slow%20Flow%20Saturday" class="book-btn">Book</a>
+    </div>
+  </div>
+
+  <div class="day-block">
+    <div class="day-header">Sunday</div>
+    <div class="class-row">
+      <div class="class-time">9:00 AM</div>
+      <div class="class-details">
+        <div class="class-name">Sunday Slow Flow</div>
+        <div class="class-meta">75 min · All levels · with Maya</div>
+      </div>
+      <a href="mailto:emberflowyoga7@gmail.com?subject=Book%20Sunday%20Slow%20Flow" class="book-btn">Book</a>
+    </div>
+    <div class="class-row">
+      <div class="class-time">11:00 AM</div>
+      <div class="class-details">
+        <div class="class-name">Mindful Movement</div>
+        <div class="class-meta">60 min · All levels · with Priya</div>
+      </div>
+      <a href="mailto:emberflowyoga7@gmail.com?subject=Book%20Mindful%20Movement%20Sunday" class="book-btn">Book</a>
+    </div>
+    <div class="class-row">
+      <div class="class-time">6:00 PM</div>
+      <div class="class-details">
+        <div class="class-name">Candlelight Restorative</div>
+        <div class="class-meta">75 min · All levels · with Sage</div>
+      </div>
+      <a href="mailto:emberflowyoga7@gmail.com?subject=Book%20Candlelight%20Restorative%20Sunday" class="book-btn">Book</a>
+    </div>
+  </div>
+
+  <div class="info-section">
+    <h2>New to Ember Flow?</h2>
+    <p>Your first class is on us. Come in, find your spot on the floor, see how it feels.<br>No commitment, no pressure.</p>
+    <a href="mailto:emberflowyoga7@gmail.com?subject=First%20Class%20Free%20-%20New%20Student" class="first-class">Claim Your Free Class</a>
+  </div>
+
+</div>
+
+<footer>
+  Ember Flow Yoga<br>
+  Alberta Arts District · NE Portland<br>
+  <a href="mailto:emberflowyoga7@gmail.com">emberflowyoga7@gmail.com</a>
+</footer>
+
+</body>
+</html>
