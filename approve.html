@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Content Review — OpenFlame AI</title>
+<style>
+  :root {
+    --ink: #1a1714;
+    --ink-soft: #6b635c;
+    --paper: #fbf9f6;
+    --card: #ffffff;
+    --line: #ece7e1;
+    --ember: #e8651f;
+    --ember-deep: #c4521a;
+    --linkedin: #0a66c2;
+    --green: #2f8f4e;
+    --shadow: 0 1px 2px rgba(26,23,20,.04), 0 8px 24px rgba(26,23,20,.06);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background: var(--paper);
+    color: var(--ink);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 720px; margin: 0 auto; padding: 0 20px 160px; }
+
+  /* Banner */
+  .banner-wrap {
+    max-width: 760px; margin: 0 auto; padding: 24px 20px 0;
+  }
+  .banner {
+    width: 100%; display: block; border-radius: 14px;
+    box-shadow: var(--shadow); border: 1px solid var(--line);
+  }
+
+  /* Header */
+  header {
+    padding: 32px 0 28px;
+    border-bottom: 2px solid var(--ink);
+    margin-bottom: 8px;
+  }
+  .eyebrow {
+    font-size: 12px; font-weight: 700; letter-spacing: 2px;
+    text-transform: uppercase; color: var(--ember);
+    margin-bottom: 10px;
+  }
+  h1 { font-size: 30px; font-weight: 800; letter-spacing: -0.02em; line-height: 1.15; }
+  .sub { margin-top: 8px; font-size: 15px; color: var(--ink-soft); }
+  .status-pill {
+    display: inline-block; margin-top: 16px; padding: 5px 12px;
+    font-size: 12px; font-weight: 700; letter-spacing: .5px; text-transform: uppercase;
+    border-radius: 100px; background: #fff3e9; color: var(--ember-deep);
+    border: 1px solid #f6d9c4;
+  }
+
+  /* Footer */
+  .pagefoot {
+    text-align: center; padding: 40px 20px 0; margin-top: 20px;
+    border-top: 1px solid var(--line); color: var(--ink-soft); font-size: 13px;
+  }
+  .pagefoot strong { color: var(--ember); }
+
+  /* Section label */
+  .section-label {
+    display: flex; align-items: center; gap: 12px;
+    margin: 44px 0 20px; font-size: 13px; font-weight: 700;
+    letter-spacing: 1.5px; text-transform: uppercase; color: var(--ink-soft);
+  }
+  .section-label::after { content: ""; flex: 1; height: 1px; background: var(--line); }
+
+  /* Post card */
+  .post {
+    background: var(--card); border: 1px solid var(--line);
+    border-radius: 14px; overflow: hidden; margin-bottom: 18px;
+    box-shadow: var(--shadow);
+  }
+  .post-photo { width: 100%; aspect-ratio: 1/1; object-fit: cover; display: block; background: #f0ece7; }
+  .post-body { padding: 18px 20px 20px; }
+  .post-day {
+    font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase;
+    color: var(--ember); margin-bottom: 10px;
+  }
+  .post-text { font-size: 15px; white-space: pre-wrap; }
+  .hashtags { margin-top: 10px; font-size: 13.5px; color: var(--linkedin); font-weight: 500; }
+
+  /* LinkedIn variant */
+  .post.li .post-day { color: var(--linkedin); }
+  .li-badge {
+    display: inline-block; width: 18px; height: 18px; border-radius: 3px;
+    background: var(--linkedin); color: #fff; font-size: 11px; font-weight: 700;
+    text-align: center; line-height: 18px; margin-right: 6px; vertical-align: -3px;
+  }
+
+  /* Email card */
+  .email {
+    background: var(--card); border: 1px solid var(--line);
+    border-radius: 14px; padding: 22px 24px; margin-bottom: 18px;
+    box-shadow: var(--shadow);
+  }
+  .email-kind { font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--ink-soft); margin-bottom: 6px; }
+  .email-subject { font-size: 17px; font-weight: 700; margin-bottom: 4px; }
+  .email-preview { font-size: 14px; color: var(--ink-soft); font-style: italic; margin-bottom: 14px; padding-bottom: 14px; border-bottom: 1px solid var(--line); }
+  .email-body { font-size: 14.5px; white-space: pre-wrap; }
+
+  /* Action bar */
+  .actions {
+    position: fixed; left: 0; right: 0; bottom: 0;
+    background: rgba(251,249,246,.92); backdrop-filter: blur(10px);
+    border-top: 1px solid var(--line); padding: 16px 20px;
+    box-shadow: 0 -4px 20px rgba(26,23,20,.06);
+  }
+  .actions-inner { max-width: 720px; margin: 0 auto; display: flex; gap: 12px; }
+  button {
+    flex: 1; font-family: inherit; font-size: 15px; font-weight: 700;
+    padding: 15px 20px; border-radius: 11px; cursor: pointer; border: none;
+    transition: transform .08s ease, opacity .15s ease;
+  }
+  button:active { transform: translateY(1px); }
+  .btn-approve { background: var(--ember); color: #fff; }
+  .btn-approve:hover { background: var(--ember-deep); }
+  .btn-changes { background: #fff; color: var(--ink); border: 1.5px solid var(--line); }
+  .btn-changes:hover { border-color: var(--ink-soft); }
+
+  /* Changes panel */
+  .changes-panel {
+    background: var(--card); border: 1px solid var(--line); border-radius: 14px;
+    padding: 22px 24px; margin: 24px 0; box-shadow: var(--shadow); display: none;
+  }
+  .changes-panel.open { display: block; }
+  .changes-panel label { display: block; font-size: 14px; font-weight: 700; margin-bottom: 10px; }
+  textarea {
+    width: 100%; min-height: 120px; font-family: inherit; font-size: 15px;
+    padding: 14px; border: 1.5px solid var(--line); border-radius: 10px; resize: vertical;
+    line-height: 1.5;
+  }
+  textarea:focus { outline: none; border-color: var(--ember); }
+
+  /* States */
+  .state { text-align: center; padding: 100px 20px; color: var(--ink-soft); }
+  .state h2 { font-size: 22px; color: var(--ink); margin-bottom: 10px; }
+  .spinner {
+    width: 32px; height: 32px; border: 3px solid var(--line); border-top-color: var(--ember);
+    border-radius: 50%; margin: 0 auto 20px; animation: spin .8s linear infinite;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .done-icon { font-size: 48px; margin-bottom: 16px; }
+
+  @media (max-width: 480px) {
+    h1 { font-size: 25px; }
+    .wrap { padding: 0 16px 150px; }
+  }
+</style>
+</head>
+<body>
+  <div id="app"></div>
+
+<script>
+const WEBHOOK_FETCH = "https://n8n.openflame-ai.com/webhook/approval-content";
+const WEBHOOK_DECISION = "https://n8n.openflame-ai.com/webhook/approval-decision";
+const BANNER = "https://openflame-ai.com/clients/openflame-ai/openflame-ai_email-banner.jpg?v=2";
+
+const params = new URLSearchParams(location.search);
+const contentId = params.get("id");
+const app = document.getElementById("app");
+
+function bannerHTML(){ return `<div class="banner-wrap"><img class="banner" src="${BANNER}" alt="OpenFlame AI"></div>`; }
+function stateScreen(inner){ return `${bannerHTML()}<div class="wrap"><div class="state">${inner}</div></div>`; }
+
+function esc(s){ return String(s==null?"":s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;"); }
+
+// Split caption into body + trailing hashtag line, strip trailing ---
+function splitCaption(text){
+  let t = String(text||"").replace(/\n*---\s*$/,"").trim();
+  const lines = t.split("\n");
+  let tagLine = "";
+  for (let i = lines.length-1; i >= 0; i--){
+    if (lines[i].trim().startsWith("#")){ tagLine = lines[i].trim(); lines.splice(i,1); }
+    else if (lines[i].trim() === "") { continue; }
+    else break;
+  }
+  return { body: lines.join("\n").trim(), tags: tagLine };
+}
+
+function parseEmail(raw){
+  let t = String(raw||"").replace(/\n*---\s*$/,"").trim();
+  const subjM = t.match(/SUBJECT LINE:\s*(.+)/i);
+  const prevM = t.match(/PREVIEW TEXT:\s*(.+)/i);
+  const subject = subjM ? subjM[1].trim() : "";
+  const preview = prevM ? prevM[1].trim() : "";
+  let body = t.replace(/SUBJECT LINE:.*\n?/i,"").replace(/PREVIEW TEXT:.*\n?/i,"").trim();
+  return { subject, preview, body };
+}
+
+function render(d){
+  let html = `
+    <div class="banner-wrap">
+      <img class="banner" src="https://openflame-ai.com/clients/openflame-ai/openflame-ai_email-banner.jpg?v=2" alt="OpenFlame AI">
+    </div>
+    <div class="wrap">
+    <header>
+      <div class="eyebrow">Content Review</div>
+      <h1>${esc(d.businessName)}</h1>
+      <div class="sub">Week of ${esc(d.weekDate)}${d.revisionNumber>1?` · Revision ${d.revisionNumber}`:""}</div>
+      <div class="status-pill">Awaiting your approval</div>
+    </header>`;
+
+  // Social posts
+  if (d.captions && d.captions.length){
+    html += `<div class="section-label">Social Posts · Instagram &amp; Facebook</div>`;
+    d.captions.forEach(c => {
+      const {body, tags} = splitCaption(c.text);
+      html += `<div class="post">`;
+      if (c.photo && c.photo.url) html += `<img class="post-photo" src="${esc(c.photo.url)}" alt="${esc(c.day)} post">`;
+      html += `<div class="post-body">
+        <div class="post-day">${esc(c.day)}</div>
+        <div class="post-text">${esc(body)}</div>
+        ${tags?`<div class="hashtags">${esc(tags)}</div>`:""}
+      </div></div>`;
+    });
+  }
+
+  // LinkedIn
+  if (d.linkedinPosts && d.linkedinPosts.length){
+    html += `<div class="section-label">LinkedIn Posts</div>`;
+    d.linkedinPosts.forEach((p,i) => {
+      const {body, tags} = splitCaption(p.text);
+      html += `<div class="post li">`;
+      if (p.media && p.media.url) html += `<img class="post-photo" src="${esc(p.media.url)}" alt="LinkedIn post ${i+1}">`;
+      html += `<div class="post-body">
+        <div class="post-day"><span class="li-badge">in</span>Post ${i+1}</div>
+        <div class="post-text">${esc(body)}</div>
+        ${tags?`<div class="hashtags">${esc(tags)}</div>`:""}
+      </div></div>`;
+    });
+  }
+
+  // Emails
+  if (d.newsletter){
+    const e = parseEmail(d.newsletter);
+    html += `<div class="section-label">Weekly Newsletter</div>
+      <div class="email">
+        <div class="email-kind">Email · Newsletter</div>
+        <div class="email-subject">${esc(e.subject)}</div>
+        ${e.preview?`<div class="email-preview">${esc(e.preview)}</div>`:""}
+        <div class="email-body">${esc(e.body)}</div>
+      </div>`;
+  }
+  if (d.promo){
+    const e = parseEmail(d.promo);
+    html += `<div class="section-label">Promotional Email</div>
+      <div class="email">
+        <div class="email-kind">Email · Promotion</div>
+        <div class="email-subject">${esc(e.subject)}</div>
+        ${e.preview?`<div class="email-preview">${esc(e.preview)}</div>`:""}
+        <div class="email-body">${esc(e.body)}</div>
+      </div>`;
+  }
+
+  // Changes panel
+  html += `
+    <div class="changes-panel" id="changesPanel">
+      <label for="notes">What would you like changed?</label>
+      <textarea id="notes" placeholder="e.g. Change Monday's photo to something brighter, and make the newsletter subject line shorter."></textarea>
+    </div>`;
+
+  // Footer + close wrap
+  html += `
+    <div class="pagefoot">Prepared for you by <strong>OpenFlame AI</strong></div>
+    </div>`;
+
+  // Action bar
+  html += `
+    <div class="actions">
+      <div class="actions-inner">
+        <button class="btn-changes" id="btnChanges">Request Changes</button>
+        <button class="btn-approve" id="btnApprove">Approve &amp; Publish</button>
+      </div>
+    </div>`;
+
+  app.innerHTML = html;
+  wireActions(d);
+}
+
+function wireActions(d){
+  const panel = document.getElementById("changesPanel");
+  const btnChanges = document.getElementById("btnChanges");
+  const btnApprove = document.getElementById("btnApprove");
+  let panelOpen = false;
+
+  btnChanges.onclick = () => {
+    if (!panelOpen){
+      panel.classList.add("open");
+      panel.scrollIntoView({behavior:"smooth", block:"center"});
+      btnChanges.textContent = "Submit Change Request";
+      panelOpen = true;
+    } else {
+      const notes = document.getElementById("notes").value.trim();
+      if (!notes){ document.getElementById("notes").focus(); return; }
+      submit(d, "changes", notes);
+    }
+  };
+  btnApprove.onclick = () => submit(d, "approve", "");
+}
+
+async function submit(d, decision, notes){
+  app.innerHTML = stateScreen(`<div class="spinner"></div><p>${decision==="approve"?"Publishing your content…":"Sending your change request…"}</p>`);
+  try {
+    const res = await fetch(WEBHOOK_DECISION, {
+      method: "POST",
+      headers: {"Content-Type":"application/json"},
+      body: JSON.stringify({ contentId: d.contentId, clientId: d.clientId, decision, notes })
+    });
+    if (!res.ok) throw new Error("bad response");
+    showDone(decision);
+  } catch(e){
+    app.innerHTML = stateScreen(`<div class="done-icon">⚠️</div><h2>Something went wrong</h2><p>We couldn't process that just now. Please try again, or reply to your approval email directly.</p>`);
+  }
+}
+
+function showDone(decision){
+  if (decision === "approve"){
+    app.innerHTML = stateScreen(`<div class="done-icon">✓</div><h2>Approved</h2><p>Your content is scheduled to publish. We'll take it from here.</p>`);
+  } else {
+    app.innerHTML = stateScreen(`<div class="done-icon">✎</div><h2>Change request received</h2><p>We're on it — you'll get an updated version to review shortly.</p>`);
+  }
+}
+
+// Boot
+if (!contentId){
+  app.innerHTML = stateScreen(`<div class="done-icon">🔗</div><h2>Missing link</h2><p>This page needs a valid content link. Please use the link from your approval email.</p>`);
+} else {
+  app.innerHTML = stateScreen(`<div class="spinner"></div><p>Loading your content…</p>`);
+  fetch(`${WEBHOOK_FETCH}?id=${encodeURIComponent(contentId)}`)
+    .then(r => r.json())
+    .then(d => {
+      if (!d || d.error || d.ok === false){
+        app.innerHTML = stateScreen(`<div class="done-icon">🔍</div><h2>Content not found</h2><p>We couldn't find content for this link. It may have expired or already been approved.</p>`);
+        return;
+      }
+      render(d);
+    })
+    .catch(() => {
+      app.innerHTML = stateScreen(`<div class="done-icon">⚠️</div><h2>Couldn't load</h2><p>There was a problem loading your content. Please try again in a moment.</p>`);
+    });
+}
+</script>
+</body>
+</html>
