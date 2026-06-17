@@ -438,6 +438,12 @@ if (!contentId){
         app.innerHTML = stateScreen(`<div class="done-icon">🔍</div><h2>Content not found</h2><p>We couldn't find content for this link. It may have expired or already been approved.</p>`);
         return;
       }
+      const status = String(d.status || '').toLowerCase();
+      if (status !== 'pending'){
+        const published = status === 'published';
+        app.innerHTML = stateScreen(`<div class="done-icon">✓</div><h2>${published ? 'Already published' : 'Already approved'}</h2><p>This content has already been ${published ? 'published' : 'approved'} and is no longer available for review. If you need to make a change, just reply to your most recent email from us.</p>`);
+        return;
+      }
       render(d);
     })
     .catch(() => {
