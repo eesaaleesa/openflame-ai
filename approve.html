@@ -216,6 +216,7 @@ const BANNER = "https://openflame-ai.com/clients/openflame-ai/openflame-ai_email
 
 const params = new URLSearchParams(location.search);
 const contentId = params.get("id");
+const token = params.get("t");
 const app = document.getElementById("app");
 
 function bannerHTML(){ return `<div class="banner-wrap"><img class="banner" src="${BANNER}" alt="OpenFlame AI"></div>`; }
@@ -409,7 +410,7 @@ async function submit(d, decision, notes){
     const res = await fetch(WEBHOOK_DECISION, {
       method: "POST",
       headers: {"Content-Type":"application/json"},
-      body: JSON.stringify({ contentId: d.contentId, clientId: d.clientId, decision, notes })
+      body: JSON.stringify({ contentId: d.contentId, clientId: d.clientId, decision, notes, token })
     });
     if (!res.ok) throw new Error("bad response");
     showDone(decision);
@@ -431,7 +432,7 @@ if (!contentId){
   app.innerHTML = stateScreen(`<div class="done-icon">🔗</div><h2>Missing link</h2><p>This page needs a valid content link. Please use the link from your approval email.</p>`);
 } else {
   app.innerHTML = stateScreen(`<div class="spinner"></div><p>Loading your content…</p>`);
-  fetch(`${WEBHOOK_FETCH}?id=${encodeURIComponent(contentId)}`)
+  fetch(`${WEBHOOK_FETCH}?id=${encodeURIComponent(contentId)}&t=${encodeURIComponent(token||'')}`)
     .then(r => r.json())
     .then(d => {
       if (!d || d.error || d.ok === false){
