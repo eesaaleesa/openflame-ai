@@ -318,6 +318,16 @@ function render(d){
       <div class="status-pill">Awaiting your approval</div>
     </header>`;
 
+  // Revision request (revisions only)
+  if (d.isRevision && d.changeNotes){
+    html += `
+    <div style="margin:18px 0;padding:16px 18px;border-left:4px solid #e8640c;background:#fff6ef;border-radius:8px;">
+      <div style="font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#e8640c;margin-bottom:6px;">Your Revision Request</div>
+      <div style="color:#3d4f5c;line-height:1.5;white-space:pre-wrap;">${esc(d.changeNotes)}</div>
+      <div style="margin-top:10px;font-size:13px;color:#6b7280;">The content below has been revised based on this request. Review and approve to publish, or request further changes.</div>
+    </div>`;
+  }
+
   // Social posts
   if (d.captions && d.captions.length){
     html += `<div class="section-label">Social Posts · Instagram &amp; Facebook</div>`;
