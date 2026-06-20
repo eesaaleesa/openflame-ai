@@ -94,6 +94,8 @@
       transition: background 0.2s !important;
     }
     .nav-cta:hover { background: var(--ember3) !important; }
+    .nav-login { display: inline-flex; align-items: center; gap: 0.4rem; border: 1px solid rgba(30,43,51,0.18); padding: 0.5rem 1rem !important; border-radius: var(--radius); color: var(--dark) !important; transition: border-color 0.2s, color 0.2s; }
+    .nav-login:hover { border-color: var(--ember); color: var(--ember) !important; }
     @media (max-width: 680px) { .nav-links { display: none; } }
 
     /* ─── HERO BANNER ─── */
@@ -285,6 +287,22 @@
       max-width: 560px;
       line-height: 1.7;
     }
+
+    /* ─── FREE TEST DRIVE ─── */
+    #trial { background: var(--dark); color: var(--white); }
+    #trial .section-label { color: var(--ember2); }
+    #trial h2 { color: var(--white); }
+    #trial h2 em { color: var(--ember2); font-style: normal; }
+    .trial-lede { font-size: 1.08rem; line-height: 1.7; color: rgba(255,255,255,0.72); max-width: 52ch; margin: 1.2rem 0 2.2rem; }
+    .trial-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.4rem; margin-bottom: 2.6rem; }
+    @media (max-width: 760px) { .trial-grid { grid-template-columns: 1fr; gap: 1rem; } }
+    .trial-step { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: var(--radius); padding: 1.5rem; }
+    .trial-step .tnum { font-family: var(--ff-head); font-weight: 800; font-size: 0.85rem; color: var(--ember2); letter-spacing: 0.08em; margin-bottom: 0.6rem; }
+    .trial-step h4 { font-family: var(--ff-head); font-weight: 700; font-size: 1.05rem; margin-bottom: 0.4rem; color: var(--white); }
+    .trial-step p { font-size: 0.92rem; line-height: 1.6; color: rgba(255,255,255,0.62); }
+    .trial-offer { display: inline-flex; align-items: center; gap: 0.6rem; background: rgba(232,100,12,0.14); border: 1px solid rgba(232,100,12,0.4); color: var(--ember2); font-family: var(--ff-head); font-weight: 700; font-size: 0.82rem; letter-spacing: 0.06em; text-transform: uppercase; padding: 0.5rem 1rem; border-radius: 30px; margin-bottom: 1.4rem; }
+    .trial-cta-row { display: flex; align-items: center; gap: 1.2rem; flex-wrap: wrap; }
+    .trial-fine { font-size: 0.85rem; color: rgba(255,255,255,0.5); }
 
     /* ─── DIVIDER ─── */
     .divider {
@@ -669,6 +687,8 @@
       <li><a href="#what">Services</a></li>
       <li><a href="#how">How It Works</a></li>
       <li><a href="#pricing">Pricing</a></li>
+      <li><a href="#trial">Free Test Drive</a></li>
+      <li><a href="https://app.openflame-ai.com" class="nav-login">Client Login</a></li>
       <li><a href="#contact" class="nav-cta">Get Started</a></li>
     </ul>
   </nav>
@@ -935,6 +955,46 @@
         </div>
         <div class="pricing-cta">
           <a href="#contact" class="btn-primary">Start with a Free Discovery Call</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- FREE TEST DRIVE -->
+  <section id="trial">
+    <div class="wrap">
+      <div class="reveal">
+        <div class="trial-offer">★ Free Test Drive · $200 off your first 6 months</div>
+        <div class="section-label">Try Before You Buy</div>
+        <h2>See a week of your content,<br><em>before you pay a thing.</em></h2>
+        <p class="trial-lede">Not ready to commit? Take us for a spin. Tell us about your business, pick your look, share a few photos, and we'll build a full week of social posts and an email — written in your voice. No card, no commitment.</p>
+      </div>
+      <div class="trial-grid">
+        <div class="trial-step reveal reveal-d1">
+          <div class="tnum">STEP 1</div>
+          <h4>Tell us about you</h4>
+          <p>Your business, your voice, your vibe. A quick form — choose a color theme and the style that fits you.</p>
+        </div>
+        <div class="trial-step reveal reveal-d2">
+          <div class="tnum">STEP 2</div>
+          <h4>Share a few photos</h4>
+          <p>Upload a handful of your own images. We catalog them and write content around what you actually offer.</p>
+        </div>
+        <div class="trial-step reveal reveal-d3">
+          <div class="tnum">STEP 3</div>
+          <h4>Get your week, free</h4>
+          <p>We hand-craft a week of posts and an email, reviewed by a human, sent to you to post. Yours to keep.</p>
+        </div>
+      </div>
+      <div class="reveal reveal-d1">
+        <div class="trial-cta-row">
+          <a href="https://app.openflame-ai.com/trial.html" class="btn-primary">
+            Start My Free Test Drive
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8H13M13 8L9 4M13 8L9 12" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+          <span class="trial-fine">Opt in to our list and lock in <strong style="color:var(--ember2)">$200 off</strong> your first 6 months.</span>
         </div>
       </div>
     </div>
