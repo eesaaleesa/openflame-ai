@@ -96,7 +96,12 @@
     .nav-cta:hover { background: var(--ember3) !important; }
     .nav-login { display: inline-flex; align-items: center; gap: 0.4rem; border: 1px solid rgba(30,43,51,0.18); padding: 0.5rem 1rem !important; border-radius: var(--radius); color: var(--dark) !important; transition: border-color 0.2s, color 0.2s; }
     .nav-login:hover { border-color: var(--ember); color: var(--ember) !important; }
-    @media (max-width: 680px) { .nav-links { display: none; } }
+    @media (max-width: 680px) {
+      .nav-links { gap: 0.6rem; }
+      .nav-links li { display: none; }
+      .nav-links li:has(.nav-login) { display: block; }
+      .nav-login { padding: 0.45rem 0.85rem !important; font-size: 0.85rem; }
+    }
 
     /* ─── HERO BANNER ─── */
     #hero {
