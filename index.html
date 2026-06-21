@@ -79,32 +79,42 @@
       gap: 0.45rem;
     }
     .nav-logo .flame { color: var(--ember); }
-    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links { display: flex; gap: 0.6rem; list-style: none; align-items: center; }
     .nav-links a {
+      display: inline-flex;
+      align-items: center;
+      line-height: 1;
       font-size: 0.85rem;
       font-weight: 500;
       letter-spacing: 0.04em;
       text-transform: uppercase;
       color: var(--muted);
-      transition: color 0.2s;
+      border: 1px solid var(--border);
+      padding: 0.6rem 1rem;
+      border-radius: 8px;
+      transition: border-color 0.2s, color 0.2s;
     }
-    .nav-links a:hover { color: var(--dark); }
+    .nav-links a:hover { color: var(--ember); border-color: var(--ember); }
     .nav-cta {
+      display: inline-flex !important;
+      align-items: center;
+      line-height: 1;
       background: var(--ember) !important;
       color: var(--white) !important;
-      padding: 0.45rem 1.1rem;
-      border-radius: var(--radius);
+      padding: 0.6rem 1.1rem !important;
+      border: 1px solid var(--ember) !important;
+      border-radius: 8px;
       font-weight: 600 !important;
       transition: background 0.2s !important;
     }
-    .nav-cta:hover { background: var(--ember3) !important; }
-    .nav-login { display: inline-flex; align-items: center; gap: 0.4rem; border: 1px solid rgba(30,43,51,0.18); padding: 0.5rem 1rem !important; border-radius: var(--radius); color: var(--dark) !important; transition: border-color 0.2s, color 0.2s; }
+    .nav-cta:hover { background: var(--ember3) !important; border-color: var(--ember3) !important; }
+    .nav-login { display: inline-flex; align-items: center; gap: 0.4rem; }
     .nav-login:hover { border-color: var(--ember); color: var(--ember) !important; }
     @media (max-width: 680px) {
-      .nav-links { gap: 0.6rem; }
+      .nav-links { gap: 0.5rem; }
       .nav-links li { display: none; }
       .nav-links li:has(.nav-login) { display: block; }
-      .nav-login { padding: 0.45rem 0.85rem !important; font-size: 0.85rem; }
+      .nav-links a { padding: 0.5rem 0.85rem; font-size: 0.8rem; }
     }
 
     /* ─── HERO BANNER ─── */
