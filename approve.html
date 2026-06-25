@@ -80,6 +80,8 @@
     border-radius: 100px; background: #fff3e9; color: var(--ember-deep);
     border: 1px solid #f6d9c4;
   }
+  .status-pill.approved { background:#e4f3ea; color:#1f7a4d; border:1px solid #bfe3cd; }
+  .status-pill.published { background:#e7f0fb; color:#2b6cb0; border:1px solid #c5dbf3; }
 
   /* Footer */
   .pagefoot {
@@ -312,6 +314,11 @@ function renderEmail(d, raw, kindLabel){
 }
 
 function render(d){
+  const status = String(d.status||'').toLowerCase();
+  const isPending = (status === 'pending' || status === '');
+  let pillCls='', pillTxt='Awaiting your approval';
+  if(status==='approved'){ pillCls=' approved'; pillTxt='Approved'; }
+  else if(status==='published'){ pillCls=' published'; pillTxt='Published & scheduled'; }
   let html = `
     <div class="banner-wrap">
       <img class="banner" src="https://openflame-ai.com/clients/openflame-ai/openflame-ai_email-banner.jpg?v=2" alt="OpenFlame AI">
@@ -321,7 +328,7 @@ function render(d){
       <div class="eyebrow">Content Review</div>
       <h1>${esc(d.businessName)}</h1>
       <div class="sub">Week of ${esc(d.weekDate)}${d.revisionNumber>1?` · Revision ${d.revisionNumber}`:""}</div>
-      <div class="status-pill">Awaiting your approval</div>
+      <div class="status-pill${pillCls}">${pillTxt}</div>
     </header>`;
 
   // Revision request (revisions only)
@@ -374,29 +381,33 @@ function render(d){
     html += renderEmail(d, d.promo, "Email · Promotion");
   }
 
-  // Changes panel
-  html += `
+  // Changes panel (only while pending)
+  if(isPending){
+    html += `
     <div class="changes-panel" id="changesPanel">
       <label for="notes">What would you like changed?</label>
       <textarea id="notes" placeholder="e.g. Change Monday's photo to something brighter, and make the newsletter subject line shorter."></textarea>
     </div>`;
+  }
 
   // Footer + close wrap
   html += `
     <div class="pagefoot">Prepared for you by <strong>OpenFlame AI</strong></div>
     </div>`;
 
-  // Action bar
-  html += `
+  // Action bar (only while pending)
+  if(isPending){
+    html += `
     <div class="actions">
       <div class="actions-inner">
         <button class="btn-changes" id="btnChanges">Request Changes</button>
         <button class="btn-approve" id="btnApprove">Approve &amp; Publish</button>
       </div>
     </div>`;
+  }
 
   app.innerHTML = html;
-  wireActions(d);
+  if(isPending) wireActions(d);
 }
 
 function wireActions(d){
@@ -453,12 +464,6 @@ if (!contentId){
     .then(d => {
       if (!d || d.error || d.ok === false){
         app.innerHTML = stateScreen(`<div class="done-icon">🔍</div><h2>Content not found</h2><p>We couldn't find content for this link. It may have expired or already been approved.</p>`);
-        return;
-      }
-      const status = String(d.status || '').toLowerCase();
-      if (status !== 'pending'){
-        const published = status === 'published';
-        app.innerHTML = stateScreen(`<div class="done-icon">✓</div><h2>${published ? 'Already published' : 'Already approved'}</h2><p>This content has already been ${published ? 'published' : 'approved'} and is no longer available for review. If you need to make a change, just reply to your most recent email from us.</p>`);
         return;
       }
       render(d);
