@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="theme-color" content="#ffffff" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Content Review — OpenFlame AI</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #1a1714;
+    --ink-soft: #6b635c;
+    --paper: #fbf9f6;
+    --card: #ffffff;
+    --line: #ece7e1;
+    --ember: #e8651f;
+    --ember-deep: #c4521a;
+    --linkedin: #0a66c2;
+    --green: #2f8f4e;
+    --shadow: 0 1px 2px rgba(26,23,20,.04), 0 8px 24px rgba(26,23,20,.06);
+    --bg: #1e2b33;
+    --on-bg: #f1f4f5;
+    --on-bg-soft: rgba(255,255,255,.66);
+  }
+
+  /* Nav — matches the portal exactly */
+  nav { display:flex; align-items:center; justify-content:space-between; padding:8px 22px; background:#fff; border-bottom:1px solid var(--line); position:sticky; top:0; z-index:100; }
+  .nav-logo { font-family:"Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; font-weight:800; font-size:20px; line-height:1.55; color:var(--ink); display:flex; align-items:center; gap:.45rem; text-decoration:none; }
+  .nav-logo img { height:26px; width:auto; }
+  .nav-logo .flame { color:var(--ember); }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { background:#fff; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background-color: var(--bg);
+    background-image: repeating-linear-gradient(-45deg,rgba(255,255,255,0.02) 0px,rgba(255,255,255,0.02) 1px,transparent 1px,transparent 12px);
+    color: var(--ink);
+    line-height: 1.6;
+    min-height: 100vh; min-height: 100dvh;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 720px; margin: 0 auto; padding: 0 20px 160px; }
+
+  /* Banner */
+  .banner-wrap {
+    max-width: 760px; margin: 0 auto; padding: 24px 20px 0;
+  }
+  .banner {
+    width: 100%; display: block; border-radius: 14px;
+    box-shadow: var(--shadow); border: 1px solid var(--line);
+  }
+
+  /* Header */
+  header {
+    padding: 32px 0 28px;
+    border-bottom: 2px solid rgba(255,255,255,.18);
+    margin-bottom: 8px;
+  }
+  .eyebrow {
+    font-size: 12px; font-weight: 700; letter-spacing: 2px;
+    text-transform: uppercase; color: var(--ember);
+    margin-bottom: 10px;
+  }
+  h1 { font-size: 30px; font-weight: 800; letter-spacing: -0.02em; line-height: 1.15; color: var(--on-bg); }
+  .sub { margin-top: 8px; font-size: 15px; color: var(--on-bg-soft); }
+  .status-pill {
+    display: inline-block; margin-top: 16px; padding: 5px 12px;
+    font-size: 12px; font-weight: 700; letter-spacing: .5px; text-transform: uppercase;
+    border-radius: 100px; background: #fff3e9; color: var(--ember-deep);
+    border: 1px solid #f6d9c4;
+  }
+  .status-pill.approved { background:#e4f3ea; color:#1f7a4d; border:1px solid #bfe3cd; }
+  .status-pill.published { background:#e7f0fb; color:#2b6cb0; border:1px solid #c5dbf3; }
+
+  /* Footer */
+  .pagefoot {
+    text-align: center; padding: 40px 20px 0; margin-top: 20px;
+    border-top: 1px solid rgba(255,255,255,.12); color: var(--on-bg-soft); font-size: 13px;
+  }
+  .pagefoot strong { color: var(--ember); }
+
+  /* Section label */
+  .section-label {
+    display: flex; align-items: center; gap: 12px;
+    margin: 44px 0 20px; font-size: 13px; font-weight: 700;
+    letter-spacing: 1.5px; text-transform: uppercase; color: var(--on-bg-soft);
+  }
+  .section-label::after { content: ""; flex: 1; height: 1px; background: rgba(255,255,255,.12); }
+
+  /* Post card */
+  .post {
+    background: var(--card); border: 1px solid var(--line);
+    border-radius: 14px; overflow: hidden; margin-bottom: 18px;
+    box-shadow: var(--shadow);
+  }
+  .post-photo { width: 100%; aspect-ratio: 1/1; object-fit: cover; display: block; background: #f0ece7; }
+  .post-body { padding: 18px 20px 20px; }
+  .post-day {
+    font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase;
+    color: var(--ember); margin-bottom: 10px;
+  }
+  .post-text { font-size: 15px; white-space: pre-wrap; }
+  .hashtags { margin-top: 10px; font-size: 13.5px; color: var(--linkedin); font-weight: 500; }
+
+  /* LinkedIn variant */
+  .post.li .post-day { color: var(--linkedin); }
+  .li-badge {
+    display: inline-block; width: 18px; height: 18px; border-radius: 3px;
+    background: var(--linkedin); color: #fff; font-size: 11px; font-weight: 700;
+    text-align: center; line-height: 18px; margin-right: 6px; vertical-align: -3px;
+  }
+
+  /* Email preview — mirrors the real Kit email */
+  .email-preview-frame {
+    background: var(--card); border: 1px solid var(--line);
+    border-radius: 14px; overflow: hidden; margin-bottom: 18px;
+    box-shadow: var(--shadow);
+  }
+  .email-meta {
+    padding: 14px 18px; border-bottom: 1px solid var(--line); background: #faf8f5;
+  }
+  .email-meta .kind { font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--ink-soft); }
+  .email-meta .subject { font-size: 16px; font-weight: 700; margin-top: 4px; }
+  .email-meta .preview { font-size: 13px; color: var(--ink-soft); margin-top: 3px; }
+  .email-render {
+    padding: 20px 12px;
+  }
+  .email-inner {
+    max-width: 600px; margin: 0 auto; background: #fff;
+    border-radius: 8px; overflow: hidden; box-shadow: 0 2px 12px rgba(0,0,0,.06);
+  }
+  .email-inner .e-banner { width: 100%; display: block; border: 0; }
+  .e-eyebrow { padding: 30px 36px 6px; text-align: center; }
+  .e-eyebrow .biz { font-size: 12px; text-transform: uppercase; letter-spacing: 2px; font-weight: 600; }
+  .e-eyebrow .rule { width: 40px; height: 2px; margin: 14px auto 0; }
+  .e-body { padding: 20px 36px 8px; }
+  .e-body p { margin: 0 0 16px; font-size: 15px; line-height: 1.7; }
+  .e-cta { padding: 6px 36px 32px; text-align: center; }
+  .e-cta a {
+    display: inline-block; padding: 13px 32px; text-decoration: none;
+    color: #fff; font-weight: 600; font-size: 13px; text-transform: uppercase;
+    letter-spacing: 1px; border-radius: 6px;
+  }
+  .e-foot { padding: 26px 36px; text-align: center; }
+  .e-foot .fbiz { font-family: Georgia, serif; font-size: 17px; letter-spacing: 1px; margin: 0 0 6px; }
+  .e-foot .floc { font-size: 13px; opacity: .8; margin: 0; }
+  .e-foot .flinks { margin: 12px 0 0; font-size: 13px; }
+  .e-foot .flinks a { text-decoration: none; margin: 0 7px; opacity: .9; }
+  .e-foot .funsub { margin: 12px 0 0; font-size: 12px; opacity: .6; }
+
+  /* Action bar */
+  .actions {
+    position: fixed; left: 0; right: 0; bottom: 0;
+    background: rgba(30,43,51,.94); backdrop-filter: blur(10px);
+    border-top: 1px solid rgba(255,255,255,.08); padding: 16px 20px;
+    box-shadow: 0 -4px 20px rgba(26,23,20,.06);
+  }
+  .actions-inner { max-width: 720px; margin: 0 auto; display: flex; gap: 12px; }
+  button {
+    flex: 1; font-family: inherit; font-size: 15px; font-weight: 700;
+    padding: 15px 20px; border-radius: 11px; cursor: pointer; border: none;
+    transition: transform .08s ease, opacity .15s ease;
+  }
+  button:active { transform: translateY(1px); }
+  .btn-approve { background: var(--ember); color: #fff; }
+  .btn-approve:hover { background: var(--ember-deep); }
+  .btn-changes { background: transparent; color: var(--on-bg); border: 1.5px solid rgba(255,255,255,.22); }
+  .btn-changes:hover { border-color: rgba(255,255,255,.4); }
+
+  /* Changes panel */
+  .changes-panel {
+    background: var(--card); border: 1px solid var(--line); border-radius: 14px;
+    padding: 22px 24px; margin: 24px 0; box-shadow: var(--shadow); display: none;
+  }
+  .changes-panel.open { display: block; }
+  .changes-panel label { display: block; font-size: 14px; font-weight: 700; margin-bottom: 10px; }
+  textarea {
+    width: 100%; min-height: 120px; font-family: inherit; font-size: 15px;
+    padding: 14px; border: 1.5px solid var(--line); border-radius: 10px; resize: vertical;
+    line-height: 1.5;
+  }
+  textarea:focus { outline: none; border-color: var(--ember); }
+
+  /* States */
+  .state { text-align: center; padding: 100px 20px; color: var(--on-bg-soft); }
+  .state h2 { font-size: 22px; color: var(--on-bg); margin-bottom: 10px; }
+  .spinner {
+    width: 32px; height: 32px; border: 3px solid rgba(255,255,255,.2); border-top-color: var(--ember);
+    border-radius: 50%; margin: 0 auto 20px; animation: spin .8s linear infinite;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .done-icon { font-size: 48px; margin-bottom: 16px; }
+
+  @media (max-width: 480px) {
+    h1 { font-size: 25px; }
+    .wrap { padding: 0 16px 150px; }
+  }
+</style>
+</head>
+<body>
+<nav>
+  <a href="https://openflame-ai.com" class="nav-logo">
+    <img src="data:image/png;base64,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" alt="OpenFlame AI flame">
+    OpenFlame<span class="flame">AI</span>
+  </a>
+</nav>
+  <div id="app"></div>
+
+<script>
+const WEBHOOK_FETCH = "https://n8n.openflame-ai.com/webhook/approval-content";
+const WEBHOOK_DECISION = "https://n8n.openflame-ai.com/webhook/approval-decision";
+const BANNER = "https://openflame-ai.com/clients/openflame-ai/openflame-ai_email-banner.jpg?v=2";
+
+const params = new URLSearchParams(location.search);
+const contentId = params.get("id");
+const token = params.get("t");
+const app = document.getElementById("app");
+
+function bannerHTML(){ return `<div class="banner-wrap"><img class="banner" src="${BANNER}" alt="OpenFlame AI"></div>`; }
+function stateScreen(inner){ return `${bannerHTML()}<div class="wrap"><div class="state">${inner}</div></div>`; }
+
+function esc(s){ return String(s==null?"":s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;"); }
+
+// Split caption into body + trailing hashtag line, strip trailing ---
+function splitCaption(text){
+  let t = String(text||"").replace(/\n*---\s*$/,"").trim();
+  const lines = t.split("\n");
+  let tagLine = "";
+  for (let i = lines.length-1; i >= 0; i--){
+    if (lines[i].trim().startsWith("#")){ tagLine = lines[i].trim(); lines.splice(i,1); }
+    else if (lines[i].trim() === "") { continue; }
+    else break;
+  }
+  return { body: lines.join("\n").trim(), tags: tagLine };
+}
+
+function parseEmail(raw){
+  let t = String(raw||"").replace(/\n*---\s*$/,"").trim();
+  const subjM = t.match(/SUBJECT LINE:\s*(.+)/i);
+  const prevM = t.match(/PREVIEW TEXT:\s*(.+)/i);
+  const subject = subjM ? subjM[1].trim() : "";
+  const preview = prevM ? prevM[1].trim() : "";
+  let body = t.replace(/SUBJECT LINE:.*\n?/i,"").replace(/PREVIEW TEXT:.*\n?/i,"").trim();
+  return { subject, preview, body };
+}
+
+// Convert email body markdown to HTML the same way the Kit template does
+function emailBodyHtml(body, primary, textColor){
+  let b = String(body||"")
+    .replace(/^-{3,}\s*$/gm,"")
+    .replace(/\\n/g,"\n")
+    .trim();
+  // escape, then re-apply formatting
+  b = b.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+  b = b.replace(/\*\*(.+?)\*\*/g,"<strong>$1</strong>")
+       .replace(/\[([^\]]+)\]\(([^)]+)\)/g, `<a href="$2" style="color:${primary};font-weight:600;">$1</a>`)
+       .replace(/\[([^\]]+)\]/g, (m,label)=>label.replace(/^→\s*/,"").replace(/\s*→$/,"").trim());
+  return b.split(/\n\n+/).map(p=>p.trim()).filter(Boolean)
+    .map(p=>`<p style="color:${textColor};">${p.replace(/\n/g,"<br>")}</p>`).join("");
+}
+
+// Build the full Kit-style email preview
+function renderEmail(d, raw, kindLabel){
+  const e = parseEmail(raw);
+  const primary = d.emailPrimary || "#5C8B83";
+  const accent  = d.emailAccent  || "#E89B3C";
+  const bg      = d.emailBg      || "#F5EDDE";
+  const text    = d.emailText    || "#1F1F1F";
+  const banner  = d.bannerUrl || "";
+  const cta     = d.bookingUrl || "";
+  const ctaLabel= d.ctaLabel || "Learn More";
+
+  const socials = [];
+  if (d.websiteUrl)  socials.push(`<a href="${esc(d.websiteUrl)}" style="color:${bg};">Website</a>`);
+  if (d.instagramUrl)socials.push(`<a href="${esc(d.instagramUrl)}" style="color:${bg};">Instagram</a>`);
+  if (d.facebookUrl) socials.push(`<a href="${esc(d.facebookUrl)}" style="color:${bg};">Facebook</a>`);
+
+  return `
+  <div class="email-preview-frame">
+    <div class="email-meta">
+      <div class="kind">${esc(kindLabel)}</div>
+      <div class="subject">${esc(e.subject)}</div>
+      ${e.preview?`<div class="preview">${esc(e.preview)}</div>`:""}
+    </div>
+    <div class="email-render" style="background:${bg};">
+      <div class="email-inner">
+        ${banner?`<img class="e-banner" src="${esc(banner)}" alt="${esc(d.businessName)}">`:""}
+        <div class="e-eyebrow">
+          <div class="biz" style="color:${primary};">${esc(d.businessName)}</div>
+          <div class="rule" style="background:${accent};"></div>
+        </div>
+        <div class="e-body">${emailBodyHtml(e.body, primary, text)}</div>
+        ${cta?`<div class="e-cta"><a href="${esc(cta)}" style="background:${accent};">${esc(ctaLabel)}</a></div>`:""}
+        <div class="e-foot" style="background:${text};color:${bg};">
+          <p class="fbiz" style="color:${bg};">${esc(d.businessName)}</p>
+          ${d.locationDisplay?`<p class="floc" style="color:${bg};">${esc(d.locationDisplay)}</p>`:""}
+          ${socials.length?`<p class="flinks">${socials.join(" · ")}</p>`:""}
+          <p class="funsub" style="color:${bg};">You're receiving this because you signed up for updates from ${esc(d.businessName)}.</p>
+        </div>
+      </div>
+    </div>
+  </div>`;
+}
+
+function render(d){
+  const status = String(d.status||'').toLowerCase();
+  const isPending = (status === 'pending' || status === '');
+  let pillCls='', pillTxt='Awaiting your approval';
+  if(status==='approved'){ pillCls=' approved'; pillTxt='Approved'; }
+  else if(status==='published'){ pillCls=' published'; pillTxt='Published & scheduled'; }
+  let html = `
+    <div class="banner-wrap">
+      <img class="banner" src="https://openflame-ai.com/clients/openflame-ai/openflame-ai_email-banner.jpg?v=2" alt="OpenFlame AI">
+    </div>
+    <div class="wrap">
+    <header>
+      <div class="eyebrow">Content Review</div>
+      <h1>${esc(d.businessName)}</h1>
+      <div class="sub">Week of ${esc(d.weekDate)}${d.revisionNumber>1?` · Revision ${d.revisionNumber}`:""}</div>
+      <div class="status-pill${pillCls}">${pillTxt}</div>
+    </header>`;
+
+  // Revision request (revisions only)
+  if (d.isRevision && d.changeNotes){
+    html += `
+    <div style="margin:18px 0;padding:16px 18px;border-left:4px solid #e8640c;background:#fff6ef;border-radius:8px;">
+      <div style="font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#e8640c;margin-bottom:6px;">Your Revision Request</div>
+      <div style="color:#3d4f5c;line-height:1.5;white-space:pre-wrap;">${esc(d.changeNotes)}</div>
+      <div style="margin-top:10px;font-size:13px;color:#6b7280;">The content below has been revised based on this request. Review and approve to publish, or request further changes.</div>
+    </div>`;
+  }
+
+  // Social posts
+  if (d.captions && d.captions.length){
+    html += `<div class="section-label">Social Posts · Instagram &amp; Facebook</div>`;
+    d.captions.forEach(c => {
+      const {body, tags} = splitCaption(c.text);
+      html += `<div class="post">`;
+      if (c.photo && c.photo.url) html += `<img class="post-photo" src="${esc(c.photo.url)}" alt="${esc(c.day)} post">`;
+      html += `<div class="post-body">
+        <div class="post-day">${esc(c.day)}</div>
+        <div class="post-text">${esc(body)}</div>
+        ${tags?`<div class="hashtags">${esc(tags)}</div>`:""}
+      </div></div>`;
+    });
+  }
+
+  // LinkedIn
+  if (d.linkedinPosts && d.linkedinPosts.length){
+    html += `<div class="section-label">LinkedIn Posts</div>`;
+    d.linkedinPosts.forEach((p,i) => {
+      const {body, tags} = splitCaption(p.text);
+      const liDay = ['Monday','Wednesday','Friday'][i] || ('Post '+(i+1));
+      html += `<div class="post li">`;
+      if (p.media && p.media.url) html += `<img class="post-photo" src="${esc(p.media.url)}" alt="LinkedIn post ${i+1}">`;
+      html += `<div class="post-body">
+        <div class="post-day"><span class="li-badge">in</span>${esc(liDay)} · LinkedIn</div>
+        <div class="post-text">${esc(body)}</div>
+        ${tags?`<div class="hashtags">${esc(tags)}</div>`:""}
+      </div></div>`;
+    });
+  }
+
+  // Emails
+  if (d.newsletter){
+    html += `<div class="section-label">Weekly Newsletter</div>`;
+    html += renderEmail(d, d.newsletter, "Email · Newsletter");
+  }
+  if (d.promo){
+    html += `<div class="section-label">Promotional Email</div>`;
+    html += renderEmail(d, d.promo, "Email · Promotion");
+  }
+
+  // Changes panel (only while pending)
+  if(isPending){
+    html += `
+    <div class="changes-panel" id="changesPanel">
+      <label for="notes">What would you like changed?</label>
+      <textarea id="notes" placeholder="e.g. Change Monday's photo to something brighter, and make the newsletter subject line shorter."></textarea>
+    </div>`;
+  }
+
+  // Footer + close wrap
+  html += `
+    <div class="pagefoot">Prepared for you by <strong>OpenFlame AI</strong></div>
+    </div>`;
+
+  // Action bar (only while pending)
+  if(isPending){
+    html += `
+    <div class="actions">
+      <div class="actions-inner">
+        <button class="btn-changes" id="btnChanges">Request Changes</button>
+        <button class="btn-approve" id="btnApprove">Approve &amp; Publish</button>
+      </div>
+    </div>`;
+  }
+
+  app.innerHTML = html;
+  if(isPending) wireActions(d);
+}
+
+function wireActions(d){
+  const panel = document.getElementById("changesPanel");
+  const btnChanges = document.getElementById("btnChanges");
+  const btnApprove = document.getElementById("btnApprove");
+  let panelOpen = false;
+
+  btnChanges.onclick = () => {
+    if (!panelOpen){
+      panel.classList.add("open");
+      panel.scrollIntoView({behavior:"smooth", block:"center"});
+      btnChanges.textContent = "Submit Change Request";
+      panelOpen = true;
+    } else {
+      const notes = document.getElementById("notes").value.trim();
+      if (!notes){ document.getElementById("notes").focus(); return; }
+      submit(d, "changes", notes);
+    }
+  };
+  btnApprove.onclick = () => submit(d, "approve", "");
+}
+
+async function submit(d, decision, notes){
+  app.innerHTML = stateScreen(`<div class="spinner"></div><p>${decision==="approve"?"Publishing your content…":"Sending your change request…"}</p>`);
+  try {
+    const res = await fetch(WEBHOOK_DECISION, {
+      method: "POST",
+      headers: {"Content-Type":"application/json"},
+      body: JSON.stringify({ contentId: d.contentId, clientId: d.clientId, decision, notes, token })
+    });
+    if (!res.ok) throw new Error("bad response");
+    showDone(decision);
+  } catch(e){
+    app.innerHTML = stateScreen(`<div class="done-icon">⚠️</div><h2>Something went wrong</h2><p>We couldn't process that just now. Please try again, or reply to your approval email directly.</p>`);
+  }
+}
+
+function showDone(decision){
+  if (decision === "approve"){
+    app.innerHTML = stateScreen(`<div class="done-icon">✓</div><h2>Approved</h2><p>Your content is scheduled to publish. We'll take it from here.</p>`);
+  } else {
+    app.innerHTML = stateScreen(`<div class="done-icon">✎</div><h2>Change request received</h2><p>We're on it — you'll get an updated version to review shortly.</p>`);
+  }
+}
+
+// Boot
+if (!contentId){
+  app.innerHTML = stateScreen(`<div class="done-icon">🔗</div><h2>Missing link</h2><p>This page needs a valid content link. Please use the link from your approval email.</p>`);
+} else {
+  app.innerHTML = stateScreen(`<div class="spinner"></div><p>Loading your content…</p>`);
+  fetch(`${WEBHOOK_FETCH}?id=${encodeURIComponent(contentId)}&t=${encodeURIComponent(token||'')}`)
+    .then(r => r.json())
+    .then(d => {
+      if (!d || d.error || d.ok === false){
+        app.innerHTML = stateScreen(`<div class="done-icon">🔍</div><h2>Content not found</h2><p>We couldn't find content for this link. It may have expired or already been approved.</p>`);
+        return;
+      }
+      render(d);
+    })
+    .catch(() => {
+      app.innerHTML = stateScreen(`<div class="done-icon">⚠️</div><h2>Couldn't load</h2><p>There was a problem loading your content. Please try again in a moment.</p>`);
+    });
+}
+</script>
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js/v833ccba57c9e4d2798f2e76cebdd09a11778172276447" integrity="sha512-57MDmcccJXYtNnH+ZiBwzC4jb2rvgVCEokYN+L/nLlmO8rfYT/gIpW2A569iJ/3b+0UEasghjuZH/ma3wIs/EQ==" data-cf-beacon='{"version":"2024.11.0","token":"ec603e3dd78443678e7f765c75d58a88","r":1,"server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
+</body>
+</html>
