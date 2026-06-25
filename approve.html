@@ -17,6 +17,9 @@
     --linkedin: #0a66c2;
     --green: #2f8f4e;
     --shadow: 0 1px 2px rgba(26,23,20,.04), 0 8px 24px rgba(26,23,20,.06);
+    --bg: #1e2b33;
+    --on-bg: #f1f4f5;
+    --on-bg-soft: rgba(255,255,255,.66);
   }
 
   /* Fixed nav — matches openflame-ai.com homepage */
@@ -37,11 +40,14 @@
   body { padding-top: 58px; }
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { background:#fff; }
   body {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-    background: var(--paper);
-    color: var(--ink);
+    background-color: var(--bg);
+    background-image: repeating-linear-gradient(-45deg,rgba(255,255,255,0.02) 0px,rgba(255,255,255,0.02) 1px,transparent 1px,transparent 12px);
+    color: var(--on-bg);
     line-height: 1.6;
+    min-height: 100vh; min-height: 100dvh;
     -webkit-font-smoothing: antialiased;
   }
   .wrap { max-width: 720px; margin: 0 auto; padding: 0 20px 160px; }
@@ -58,7 +64,7 @@
   /* Header */
   header {
     padding: 32px 0 28px;
-    border-bottom: 2px solid var(--ink);
+    border-bottom: 2px solid rgba(255,255,255,.18);
     margin-bottom: 8px;
   }
   .eyebrow {
@@ -66,8 +72,8 @@
     text-transform: uppercase; color: var(--ember);
     margin-bottom: 10px;
   }
-  h1 { font-size: 30px; font-weight: 800; letter-spacing: -0.02em; line-height: 1.15; }
-  .sub { margin-top: 8px; font-size: 15px; color: var(--ink-soft); }
+  h1 { font-size: 30px; font-weight: 800; letter-spacing: -0.02em; line-height: 1.15; color: var(--on-bg); }
+  .sub { margin-top: 8px; font-size: 15px; color: var(--on-bg-soft); }
   .status-pill {
     display: inline-block; margin-top: 16px; padding: 5px 12px;
     font-size: 12px; font-weight: 700; letter-spacing: .5px; text-transform: uppercase;
@@ -78,7 +84,7 @@
   /* Footer */
   .pagefoot {
     text-align: center; padding: 40px 20px 0; margin-top: 20px;
-    border-top: 1px solid var(--line); color: var(--ink-soft); font-size: 13px;
+    border-top: 1px solid rgba(255,255,255,.12); color: var(--on-bg-soft); font-size: 13px;
   }
   .pagefoot strong { color: var(--ember); }
 
@@ -86,9 +92,9 @@
   .section-label {
     display: flex; align-items: center; gap: 12px;
     margin: 44px 0 20px; font-size: 13px; font-weight: 700;
-    letter-spacing: 1.5px; text-transform: uppercase; color: var(--ink-soft);
+    letter-spacing: 1.5px; text-transform: uppercase; color: var(--on-bg-soft);
   }
-  .section-label::after { content: ""; flex: 1; height: 1px; background: var(--line); }
+  .section-label::after { content: ""; flex: 1; height: 1px; background: rgba(255,255,255,.12); }
 
   /* Post card */
   .post {
@@ -154,8 +160,8 @@
   /* Action bar */
   .actions {
     position: fixed; left: 0; right: 0; bottom: 0;
-    background: rgba(251,249,246,.92); backdrop-filter: blur(10px);
-    border-top: 1px solid var(--line); padding: 16px 20px;
+    background: rgba(30,43,51,.94); backdrop-filter: blur(10px);
+    border-top: 1px solid rgba(255,255,255,.08); padding: 16px 20px;
     box-shadow: 0 -4px 20px rgba(26,23,20,.06);
   }
   .actions-inner { max-width: 720px; margin: 0 auto; display: flex; gap: 12px; }
@@ -167,8 +173,8 @@
   button:active { transform: translateY(1px); }
   .btn-approve { background: var(--ember); color: #fff; }
   .btn-approve:hover { background: var(--ember-deep); }
-  .btn-changes { background: #fff; color: var(--ink); border: 1.5px solid var(--line); }
-  .btn-changes:hover { border-color: var(--ink-soft); }
+  .btn-changes { background: transparent; color: var(--on-bg); border: 1.5px solid rgba(255,255,255,.22); }
+  .btn-changes:hover { border-color: rgba(255,255,255,.4); }
 
   /* Changes panel */
   .changes-panel {
@@ -185,10 +191,10 @@
   textarea:focus { outline: none; border-color: var(--ember); }
 
   /* States */
-  .state { text-align: center; padding: 100px 20px; color: var(--ink-soft); }
-  .state h2 { font-size: 22px; color: var(--ink); margin-bottom: 10px; }
+  .state { text-align: center; padding: 100px 20px; color: var(--on-bg-soft); }
+  .state h2 { font-size: 22px; color: var(--on-bg); margin-bottom: 10px; }
   .spinner {
-    width: 32px; height: 32px; border: 3px solid var(--line); border-top-color: var(--ember);
+    width: 32px; height: 32px; border: 3px solid rgba(255,255,255,.2); border-top-color: var(--ember);
     border-radius: 50%; margin: 0 auto 20px; animation: spin .8s linear infinite;
   }
   @keyframes spin { to { transform: rotate(360deg); } }
