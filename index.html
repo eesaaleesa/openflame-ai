@@ -704,6 +704,7 @@
     .reveal-d2 { transition-delay: 0.2s; }
     .reveal-d3 { transition-delay: 0.3s; }
   </style>
+  <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 </head>
 <body>
 
@@ -1095,6 +1096,8 @@
               <label for="message">Anything else we should know?</label>
               <textarea id="message" name="message" placeholder="Tell us about your current content situation, challenges, or goals…"></textarea>
             </div>
+            <div class="cf-turnstile" data-sitekey="0x4AAAAAADr-V36Svy18gJlB" data-theme="light" style="margin-top:0.25rem;"></div>
+            <p id="tsError" style="display:none;font-size:0.82rem;color:var(--ember3);margin-top:-0.3rem;">Please complete the verification above.</p>
             <div class="form-submit">
               <button type="submit" class="btn-primary" style="width:100%;justify-content:center;">
                 Send Inquiry
@@ -1158,11 +1161,16 @@
         form.querySelector('#email').style.borderColor = !email ? 'var(--ember)' : '';
         return;
       }
+      const tsError = document.getElementById('tsError');
+      const tsToken = (typeof turnstile !== 'undefined') ? turnstile.getResponse() : '';
+      if (!tsToken) { tsError.style.display = 'block'; return; }
+      tsError.style.display = 'none';
       const btn = form.querySelector('button[type="submit"]');
       btn.textContent = 'Sending…';
       btn.style.opacity = '0.7';
       btn.disabled = true;
       const data = Object.fromEntries(new FormData(form));
+      data['cf-turnstile-response'] = tsToken;
       const CONTACT_URL = 'https://n8n.openflame-ai.com/webhook/contact-inquiry';
       try {
         const res = await fetch(CONTACT_URL, {
@@ -1179,6 +1187,7 @@
         btn.textContent = 'Send Inquiry';
         btn.style.opacity = '1';
         btn.disabled = false;
+        if (typeof turnstile !== 'undefined') turnstile.reset();
         alert('Something went wrong. Please email us directly at eesa.aleesa@openflame-ai.com');
       }
     });
