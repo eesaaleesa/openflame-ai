@@ -1056,6 +1056,10 @@
             <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6" stroke="currentColor" stroke-width="1.5"/><path d="M8 5v3l2 2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
             Currently accepting new clients
           </div>
+          <div class="contact-detail">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M2 4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V4Z" stroke="currentColor" stroke-width="1.5" fill="none"/><path d="M2.5 4.5L8 8.5l5.5-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+            <a href="mailto:contact@openflame-ai.com" style="color:inherit;border-bottom:1px solid var(--border);">contact@openflame-ai.com</a>
+          </div>
         </div>
         <div class="reveal reveal-d1">
           <form id="inquiryForm">
@@ -1188,7 +1192,7 @@
         btn.style.opacity = '1';
         btn.disabled = false;
         if (typeof turnstile !== 'undefined') turnstile.reset();
-        alert('Something went wrong. Please email us directly at eesa.aleesa@openflame-ai.com');
+        alert('Something went wrong sending your inquiry. Please try again in a moment.');
       }
     });
 
