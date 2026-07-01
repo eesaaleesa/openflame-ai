@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#ffffff">
+<title>Your Sample Week — OpenFlame AI</title>
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #1a1714;
+    --ink-soft: #6b635c;
+    --paper: #fbf9f6;
+    --card: #ffffff;
+    --line: #ece7e1;
+    --ember: #e8651f;
+    --ember-deep: #c4521a;
+    --linkedin: #0a66c2;
+    --green: #2f8f4e;
+    --shadow: 0 1px 2px rgba(26,23,20,.04), 0 8px 24px rgba(26,23,20,.06);
+  }
+
+  /* Fixed nav — matches openflame-ai.com homepage */
+  .of-nav {
+    position: fixed; inset: 0 0 auto; z-index: 100;
+    padding: 0.85rem 1.5rem; display: flex; align-items: center;
+    background: #ffffff;
+    border-bottom: 1px solid var(--line);
+    padding-top: calc(0.85rem + env(safe-area-inset-top));
+  }
+  /* white fill behind the iOS status bar / notch */
+  body::before {
+    content: ""; position: fixed; top: 0; left: 0; right: 0;
+    height: env(safe-area-inset-top); background: #ffffff; z-index: 101;
+  }
+  .of-nav-logo {
+    font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-weight: 800; font-size: 1.15rem; letter-spacing: -0.02em;
+    color: var(--ink); display: flex; align-items: center; gap: 0.45rem;
+    text-decoration: none;
+  }
+  .of-nav-logo img { height: 26px; width: auto; }
+  .of-nav-logo .ai { color: var(--ember); }
+  body { padding-top: 58px; }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background-color: #1e2b33;
+    background-image: repeating-linear-gradient(-45deg, rgba(255,255,255,0.022) 0px, rgba(255,255,255,0.022) 1px, transparent 1px, transparent 13px);
+    color: #f1f4f5;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 720px; margin: 0 auto; padding: 0 20px 160px; }
+
+  /* Banner */
+  .banner-wrap {
+    max-width: 760px; margin: 0 auto; padding: 24px 20px 0;
+  }
+  .banner {
+    width: 100%; display: block; border-radius: 14px;
+    box-shadow: var(--shadow); border: 1px solid var(--line);
+  }
+
+  /* Header */
+  header {
+    padding: 32px 0 28px;
+    border-bottom: 2px solid var(--ink);
+    margin-bottom: 8px;
+  }
+  .eyebrow {
+    font-size: 12px; font-weight: 700; letter-spacing: 2px;
+    text-transform: uppercase; color: var(--ember);
+    margin-bottom: 10px;
+  }
+  h1 { font-size: 30px; font-weight: 800; letter-spacing: -0.02em; line-height: 1.15; }
+  .sub { margin-top: 8px; font-size: 15px; color: var(--ink-soft); }
+  .status-pill {
+    display: inline-block; margin-top: 16px; padding: 5px 12px;
+    font-size: 12px; font-weight: 700; letter-spacing: .5px; text-transform: uppercase;
+    border-radius: 100px; background: #fff3e9; color: var(--ember-deep);
+    border: 1px solid #f6d9c4;
+  }
+
+  /* Footer */
+  .pagefoot {
+    text-align: center; padding: 40px 20px 0; margin-top: 20px;
+    border-top: 1px solid var(--line); color: var(--ink-soft); font-size: 13px;
+  }
+  .pagefoot strong { color: var(--ember); }
+
+  /* Section label */
+  .section-label {
+    display: flex; align-items: center; gap: 10px; margin: 44px 0 18px;
+  }
+  .section-label .sl-ic { width: 28px; height: 28px; border-radius: 8px; display:flex; align-items:center; justify-content:center; flex:0 0 auto; }
+  .section-label .sl-ic.ic-social { background: rgba(232,101,31,.18); color: #ffb87a; }
+  .section-label .sl-ic.ic-mail { background: rgba(255,255,255,.10); color: rgba(241,244,245,0.6); }
+  .section-label .sl-tx { font-size: 13px; font-weight: 700; letter-spacing: 1.4px; text-transform: uppercase; color: #f1f4f5; }
+  .section-label .sl-count { font-size: 11px; font-weight: 700; color: rgba(241,244,245,0.55); background: rgba(255,255,255,.09); border-radius: 999px; padding: 2px 8px; }
+  .section-label .sl-line { flex: 1; height: 1px; background: rgba(255,255,255,0.12); }
+
+  /* Week overview chips */
+  .overview { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 18px; }
+  .ov-chip { display: inline-flex; align-items: center; gap: 7px; font-size: 12.5px; font-weight: 600; color: #f1f4f5; background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.10); border-radius: 999px; padding: 5px 12px; }
+  .ov-chip .ov-dot { width: 6px; height: 6px; border-radius: 50%; flex: 0 0 auto; }
+
+  /* Post card */
+  .post {
+    background: var(--card); border: 1px solid var(--line);
+    border-radius: 16px; overflow: hidden; margin-bottom: 18px;
+    box-shadow: var(--shadow); transition: transform .16s ease, box-shadow .16s ease;
+  }
+  @media (hover:hover){ .post:hover { transform: translateY(-2px); box-shadow: 0 12px 28px rgba(26,23,20,.16); } }
+  .post-photo { width: 100%; aspect-ratio: 1/1; object-fit: cover; display: block; background: #f0ece7; }
+  .post-body { padding: 16px 20px 20px; }
+  .post-head { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 11px; }
+  .post-day {
+    font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase;
+    color: var(--ember); margin: 0;
+  }
+  .post.li .post-day { color: var(--linkedin); }
+  .chips { display: flex; gap: 6px; flex: 0 0 auto; }
+  .chip { display: inline-flex; align-items: center; font-size: 10.5px; font-weight: 700; letter-spacing: .02em; padding: 3px 9px; border-radius: 999px; white-space: nowrap; }
+  .chip-ig { background: rgba(193,53,132,.12); color: #c13584; }
+  .chip-fb { background: rgba(24,119,242,.12); color: #1877f2; }
+  .chip-li { background: rgba(10,102,194,.12); color: #0a66c2; }
+  .post-text { font-size: 15px; white-space: pre-wrap; color: #1a1714; }
+  .hashtags { margin-top: 11px; font-size: 13.5px; color: #3d4f5c; font-weight: 500; line-height: 1.5; }
+  .post.li .hashtags { color: var(--linkedin); }
+
+  /* LinkedIn variant */
+  .post.li .post-day { color: var(--linkedin); }
+  .li-badge {
+    display: inline-block; width: 18px; height: 18px; border-radius: 3px;
+    background: var(--linkedin); color: #fff; font-size: 11px; font-weight: 700;
+    text-align: center; line-height: 18px; margin-right: 6px; vertical-align: -3px;
+  }
+
+  /* Email preview — mirrors the real Kit email */
+  .email-preview-frame {
+    background: var(--card); border: 1px solid var(--line);
+    border-radius: 14px; overflow: hidden; margin-bottom: 18px;
+    box-shadow: var(--shadow);
+  }
+  .email-meta {
+    padding: 14px 18px; border-bottom: 1px solid var(--line); background: #faf8f5;
+  }
+  .email-meta .kind { font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--ink-soft); }
+  .email-meta .subject { font-size: 16px; font-weight: 700; margin-top: 4px; color: #1a1714; }
+  .email-meta .preview { font-size: 13px; color: var(--ink-soft); margin-top: 3px; }
+  .email-render {
+    padding: 20px 12px;
+  }
+  .email-inner {
+    max-width: 600px; margin: 0 auto; background: #fff;
+    border-radius: 8px; overflow: hidden; box-shadow: 0 2px 12px rgba(0,0,0,.06);
+  }
+  .email-inner .e-banner { width: 100%; display: block; border: 0; }
+  .e-eyebrow { padding: 30px 36px 6px; text-align: center; }
+  .e-eyebrow .biz { font-size: 12px; text-transform: uppercase; letter-spacing: 2px; font-weight: 600; }
+  .e-eyebrow .rule { width: 40px; height: 2px; margin: 14px auto 0; }
+  .e-body { padding: 20px 36px 8px; }
+  .e-body p { margin: 0 0 16px; font-size: 15px; line-height: 1.7; }
+  .e-cta { padding: 6px 36px 32px; text-align: center; }
+  .e-cta a {
+    display: inline-block; padding: 13px 32px; text-decoration: none;
+    color: #fff; font-weight: 600; font-size: 13px; text-transform: uppercase;
+    letter-spacing: 1px; border-radius: 6px;
+  }
+  .e-foot { padding: 26px 36px; text-align: center; }
+  .e-foot .fbiz { font-family: Georgia, serif; font-size: 17px; letter-spacing: 1px; margin: 0 0 6px; }
+  .e-foot .floc { font-size: 13px; opacity: .8; margin: 0; }
+  .e-foot .flinks { margin: 12px 0 0; font-size: 13px; }
+  .e-foot .flinks a { text-decoration: none; margin: 0 7px; opacity: .9; }
+  .e-foot .funsub { margin: 12px 0 0; font-size: 12px; opacity: .6; }
+
+  /* Action bar */
+  .actions {
+    position: fixed; left: 0; right: 0; bottom: 0;
+    background: rgba(251,249,246,.92); backdrop-filter: blur(10px);
+    border-top: 1px solid var(--line); padding: 16px 20px;
+    box-shadow: 0 -4px 20px rgba(26,23,20,.06);
+  }
+  .actions-inner { max-width: 720px; margin: 0 auto; display: flex; gap: 12px; }
+  button {
+    flex: 1; font-family: inherit; font-size: 15px; font-weight: 700;
+    padding: 15px 20px; border-radius: 11px; cursor: pointer; border: none;
+    transition: transform .08s ease, opacity .15s ease;
+  }
+  button:active { transform: translateY(1px); }
+  .btn-approve { background: var(--ember); color: #fff; }
+  .btn-approve:hover { background: var(--ember-deep); }
+  .btn-changes { background: #fff; color: var(--ink); border: 1.5px solid var(--line); }
+  .btn-changes:hover { border-color: var(--ink-soft); }
+
+  /* Changes panel */
+  .changes-panel {
+    background: var(--card); border: 1px solid var(--line); border-radius: 14px;
+    padding: 22px 24px; margin: 24px 0; box-shadow: var(--shadow); display: none;
+  }
+  .changes-panel.open { display: block; }
+  .changes-panel label { display: block; font-size: 14px; font-weight: 700; margin-bottom: 10px; }
+  textarea {
+    width: 100%; min-height: 120px; font-family: inherit; font-size: 15px;
+    padding: 14px; border: 1.5px solid var(--line); border-radius: 10px; resize: vertical;
+    line-height: 1.5;
+  }
+  textarea:focus { outline: none; border-color: var(--ember); }
+
+  /* States */
+  .state { text-align: center; padding: 100px 20px; color: var(--ink-soft); }
+  .state h2 { font-size: 22px; color: var(--ink); margin-bottom: 10px; }
+  .spinner {
+    width: 32px; height: 32px; border: 3px solid var(--line); border-top-color: var(--ember);
+    border-radius: 50%; margin: 0 auto 20px; animation: spin .8s linear infinite;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .done-icon { font-size: 48px; margin-bottom: 16px; }
+
+  @media (max-width: 480px) {
+    h1 { font-size: 25px; }
+    .wrap { padding: 0 16px 150px; }
+  }
+
+  /* --- trial showcase additions --- */
+  .intro { text-align:center; margin: 8px 0 30px; }
+  .intro .eyebrow { font-size:12px; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; color:var(--ember); }
+  .intro h1 { margin:10px 0 10px; color:#f1f4f5; }
+  .intro p { font-size:16px; color:rgba(241,244,245,0.7); max-width:54ch; margin:0 auto; line-height:1.55; }
+  .section-label { font-size:12px; font-weight:700; letter-spacing:1.2px; text-transform:uppercase; color:rgba(241,244,245,0.55); margin:34px 0 14px; }
+  .convert {
+    margin: 44px auto 0; max-width: 720px; background:#1e2b33;
+    background-image:repeating-linear-gradient(-45deg,rgba(255,255,255,0.03) 0px,rgba(255,255,255,0.03) 1px,transparent 1px,transparent 12px);
+    border-radius:18px; padding:36px 28px; text-align:center; color:#f1f4f5;
+  }
+  .convert h2 { font-family:'Plus Jakarta Sans',sans-serif; font-size:23px; font-weight:800; margin:0 0 10px; color:#fff; }
+  .convert p { color:rgba(255,255,255,.72); font-size:15px; max-width:48ch; margin:0 auto 22px; line-height:1.55; }
+  .convert a.cta {
+    display:inline-block; background:var(--ember); color:#fff; font-family:'Plus Jakarta Sans',sans-serif;
+    font-weight:700; font-size:16px; text-decoration:none; padding:15px 30px; border-radius:12px;
+    box-shadow:0 6px 18px rgba(232,101,31,.34);
+  }
+  .convert a.cta:hover { background:var(--ember-deep); }
+  .convert .fineprint { color:rgba(255,255,255,.5); font-size:12.5px; margin-top:18px; }
+</style>
+</head>
+<body>
+<nav class="of-nav">
+  <a href="https://openflame-ai.com" class="of-nav-logo">
+    <img src="https://openflame-ai.com/clients/openflame-ai/openflame-ai_logo-mark.png" alt="OpenFlame" onerror="this.style.display='none'">
+    <span>OpenFlame <span class="ai">AI</span></span>
+  </a>
+</nav>
+
+<div id="app"></div>
+
+<script>
+const BANNER = "https://openflame-ai.com/clients/openflame-ai/openflame-ai_email-banner.jpg?v=2";
+const WEBHOOK_FETCH = "https://n8n.openflame-ai.com/webhook/trial-preview-content";
+const CTA_URL = "https://openflame-ai.com/#contact";
+
+const params = new URLSearchParams(location.search);
+const trialId = params.get("id");
+const token = params.get("t");
+const app = document.getElementById("app");
+
+function esc(s){ return String(s==null?"":s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;"); }
+function bannerHTML(){ return `<div class="banner-wrap"><img class="banner" src="${BANNER}" alt="OpenFlame AI"></div>`; }
+function stateScreen(inner){ return `${bannerHTML()}<div class="wrap"><div class="state">${inner}</div></div>`; }
+
+// Accept both "Subject:/Preview:" (trial) and "SUBJECT LINE:/PREVIEW TEXT:" (legacy)
+function parseEmail(raw){
+  let t = String(raw||"").replace(/\n*---\s*$/,"").trim();
+  const subjM = t.match(/(?:SUBJECT LINE|Subject)\s*:\s*(.+)/i);
+  const prevM = t.match(/(?:PREVIEW TEXT|Preview)\s*:\s*(.+)/i);
+  const subject = subjM ? subjM[1].trim() : "";
+  const preview = prevM ? prevM[1].trim() : "";
+  let body = t.replace(/(?:SUBJECT LINE|Subject)\s*:.*\n?/i,"").replace(/(?:PREVIEW TEXT|Preview)\s*:.*\n?/i,"").trim();
+  return { subject, preview, body };
+}
+
+function emailBodyHtml(body, primary, textColor){
+  let b = String(body||"").replace(/^-{3,}\s*$/gm,"").replace(/\\n/g,"\n").trim();
+  b = b.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+  b = b.replace(/\*\*(.+?)\*\*/g,"<strong>$1</strong>")
+       .replace(/\[([^\]]+)\]\(([^)]+)\)/g, `<a href="$2" style="color:${primary};font-weight:600;">$1</a>`)
+       .replace(/\[([^\]]+)\]/g, (m,label)=>label.replace(/^→\s*/,"").replace(/\s*→$/,"").trim());
+  return b.split(/\n\n+/).map(p=>p.trim()).filter(Boolean)
+    .map(p=>`<p style="color:${textColor};">${p.replace(/\n/g,"<br>")}</p>`).join("");
+}
+
+// Split a caption's trailing hashtag block off the body
+function splitCaption(raw){
+  const lines = String(raw||"").split("\n");
+  let tagLine = "";
+  for (let i = lines.length-1; i >= 0; i--){
+    if (lines[i].trim().startsWith("#")){ tagLine = lines[i].trim(); lines.splice(i,1); }
+    else if (lines[i].trim() === "") { continue; }
+    else break;
+  }
+  return { body: lines.join("\n").trim(), tags: tagLine };
+}
+
+function sectionIcon(kind){
+  if(kind==='social') return '<svg width="15" height="15" viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="18" height="18" rx="5" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="1.8"/><circle cx="17.3" cy="6.7" r="1.2" fill="currentColor"/></svg>';
+  return '<svg width="15" height="15" viewBox="0 0 24 24" fill="none"><rect x="3" y="5" width="18" height="14" rx="2" stroke="currentColor" stroke-width="1.8"/><path d="M4 7l8 6 8-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+}
+function sectionLabel(kind, text, count){
+  const cls = kind==='social'?'ic-social':'ic-mail';
+  const cnt = (count!=null)?`<span class="sl-count">${count}</span>`:'';
+  return `<div class="section-label"><span class="sl-ic ${cls}">${sectionIcon(kind)}</span><span class="sl-tx">${esc(text)}</span>${cnt}<span class="sl-line"></span></div>`;
+}
+
+function renderCaption(d, c){
+  const parts = splitCaption(c.content_text);
+  const photo = c.photo_url ? `<img class="post-photo" src="${esc(c.photo_url)}" alt="${esc(d.businessName)}">` : "";
+  const tags = parts.tags ? `<div class="hashtags">${esc(parts.tags)}</div>` : "";
+  return `
+  <div class="post">
+    ${photo}
+    <div class="post-body">
+      <div class="post-head"><div class="chips"><span class="chip chip-ig">Instagram</span><span class="chip chip-fb">Facebook</span></div></div>
+      <div class="post-text">${esc(parts.body)}</div>
+      ${tags}
+    </div>
+  </div>`;
+}
+
+function renderEmail(d, raw, kindLabel){
+  const e = parseEmail(raw);
+  const primary = d.emailPrimary || "#5C8B83";
+  const accent  = d.emailAccent  || "#E89B3C";
+  const bg      = d.emailBg      || "#F5EDDE";
+  const text    = d.emailText    || "#1F1F1F";
+  const banner  = d.bannerUrl || "";
+  const socials = [];
+  if (d.websiteUrl)  socials.push(`<a href="${esc(d.websiteUrl)}" style="color:${bg};">Website</a>`);
+  if (d.instagramUrl)socials.push(`<a href="${esc(d.instagramUrl)}" style="color:${bg};">Instagram</a>`);
+  if (d.facebookUrl) socials.push(`<a href="${esc(d.facebookUrl)}" style="color:${bg};">Facebook</a>`);
+  return `
+  <div class="email-preview-frame">
+    <div class="email-meta">
+      <div class="kind">${esc(kindLabel)}</div>
+      <div class="subject">${esc(e.subject)}</div>
+      ${e.preview?`<div class="preview">${esc(e.preview)}</div>`:""}
+    </div>
+    <div class="email-render" style="background:${bg};">
+      <div class="email-inner">
+        ${banner?`<img class="e-banner" src="${esc(banner)}" alt="${esc(d.businessName)}">`:""}
+        <div class="e-eyebrow">
+          <div class="biz" style="color:${primary};">${esc(d.businessName)}</div>
+          <div class="rule" style="background:${accent};"></div>
+        </div>
+        <div class="e-body">${emailBodyHtml(e.body, primary, text)}</div>
+        <div class="e-foot" style="background:${text};color:${bg};">
+          <p class="fbiz" style="color:${bg};">${esc(d.businessName)}</p>
+          ${d.locationDisplay?`<p class="floc" style="color:${bg};">${esc(d.locationDisplay)}</p>`:""}
+          ${socials.length?`<p class="flinks">${socials.join(" · ")}</p>`:""}
+        </div>
+      </div>
+    </div>
+  </div>`;
+}
+
+function render(d){
+  const captions = (d.captions||[]);
+  const hasNews = !!d.newsletter, hasPromo = !!d.promo;
+  const ov = [];
+  if (captions.length) ov.push(`<span class="ov-chip"><span class="ov-dot" style="background:var(--ember)"></span>${captions.length} Social</span>`);
+  if (hasNews) ov.push(`<span class="ov-chip"><span class="ov-dot" style="background:#7fb6f0"></span>Newsletter</span>`);
+  if (hasPromo) ov.push(`<span class="ov-chip"><span class="ov-dot" style="background:#ffb87a"></span>Promo</span>`);
+
+  let html = bannerHTML() + `<div class="wrap">`;
+  html += `
+    <div class="intro">
+      <div class="eyebrow">Your sample week</div>
+      <h1>Here's a week of content we made for ${esc(d.businessName)}</h1>
+      <p>Researched, written, and designed for your business this week — your photos, your voice, your local angles. This is what every week looks like as an OpenFlame client.</p>
+      ${ov.length?`<div class="overview">${ov.join('')}</div>`:''}
+    </div>`;
+
+  if (captions.length){
+    html += sectionLabel('social', 'Social Posts', captions.length);
+    captions.forEach(c => { html += renderCaption(d, c); });
+  }
+  if (d.newsletter){
+    html += sectionLabel('mail', 'Weekly Newsletter', null);
+    html += renderEmail(d, d.newsletter, "Email · Newsletter");
+  }
+  if (d.promo){
+    html += sectionLabel('mail', 'Promotional Email', null);
+    html += renderEmail(d, d.promo, "Email · Promotion");
+  }
+
+  html += `
+    <div class="convert">
+      <h2>Want this every week?</h2>
+      <p>Let's talk about what OpenFlame can do for ${esc(d.businessName)}. Book a quick call and we'll walk you through it — no pressure, no commitment.</p>
+      <a class="cta" href="${CTA_URL}">Book a 30-minute discovery call</a>
+      <div class="fineprint">Or just reply to the email that brought you here.</div>
+    </div>`;
+
+  html += `</div>`;
+  app.innerHTML = html;
+}
+
+// --- load ---
+if (!trialId || !token){
+  app.innerHTML = stateScreen(`<div class="done-icon">🔗</div><h2>Missing link</h2><p>This page needs a valid link. Please use the link from your email.</p>`);
+} else {
+  app.innerHTML = stateScreen(`<div class="spinner"></div><p>Loading your sample week…</p>`);
+  fetch(`${WEBHOOK_FETCH}?id=${encodeURIComponent(trialId)}&t=${encodeURIComponent(token)}`)
+    .then(r => r.json())
+    .then(d => {
+      if (!d || d.error || (!d.captions && !d.newsletter && !d.promo)){
+        app.innerHTML = stateScreen(`<div class="done-icon">🔍</div><h2>Not found</h2><p>We couldn't load this sample. The link may have expired. Please reply to your email and we'll resend it.</p>`);
+        return;
+      }
+      render(d);
+    })
+    .catch(() => {
+      app.innerHTML = stateScreen(`<div class="done-icon">⚠️</div><h2>Couldn't load</h2><p>There was a problem loading your content. Please try again in a moment.</p>`);
+    });
+}
+</script>
+</body>
+</html>
