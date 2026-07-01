@@ -82,26 +82,44 @@
 
   /* Section label */
   .section-label {
-    display: flex; align-items: center; gap: 12px;
-    margin: 44px 0 20px; font-size: 13px; font-weight: 700;
-    letter-spacing: 1.5px; text-transform: uppercase; color: var(--on-bg-soft);
+    display: flex; align-items: center; gap: 10px; margin: 44px 0 18px;
   }
-  .section-label::after { content: ""; flex: 1; height: 1px; background: rgba(255,255,255,.12); }
+  .section-label .sl-ic { width: 28px; height: 28px; border-radius: 8px; display:flex; align-items:center; justify-content:center; flex:0 0 auto; }
+  .section-label .sl-ic.ic-social { background: rgba(232,101,31,.18); color: #ffb87a; }
+  .section-label .sl-ic.ic-li { background: rgba(10,102,194,.24); color: #7fb6f0; }
+  .section-label .sl-ic.ic-mail { background: rgba(255,255,255,.10); color: var(--on-bg-soft); }
+  .section-label .sl-tx { font-size: 13px; font-weight: 700; letter-spacing: 1.4px; text-transform: uppercase; color: var(--on-bg); }
+  .section-label .sl-count { font-size: 11px; font-weight: 700; color: var(--on-bg-soft); background: rgba(255,255,255,.09); border-radius: 999px; padding: 2px 8px; }
+  .section-label .sl-line { flex: 1; height: 1px; background: rgba(255,255,255,.12); }
+
+  /* Week overview chips */
+  .overview { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
+  .ov-chip { display: inline-flex; align-items: center; gap: 7px; font-size: 12.5px; font-weight: 600; color: var(--on-bg); background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.10); border-radius: 999px; padding: 5px 12px; }
+  .ov-chip .ov-dot { width: 6px; height: 6px; border-radius: 50%; flex: 0 0 auto; }
 
   /* Post card */
   .post {
     background: var(--card); border: 1px solid var(--line);
-    border-radius: 14px; overflow: hidden; margin-bottom: 18px;
-    box-shadow: var(--shadow);
+    border-radius: 16px; overflow: hidden; margin-bottom: 18px;
+    box-shadow: var(--shadow); transition: transform .16s ease, box-shadow .16s ease;
   }
+  @media (hover:hover){ .post:hover { transform: translateY(-2px); box-shadow: 0 12px 28px rgba(26,23,20,.16); } }
   .post-photo { width: 100%; aspect-ratio: 1/1; object-fit: cover; display: block; background: #f0ece7; }
-  .post-body { padding: 18px 20px 20px; }
+  .post-body { padding: 16px 20px 20px; }
+  .post-head { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 11px; }
   .post-day {
     font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase;
-    color: var(--ember); margin-bottom: 10px;
+    color: var(--ember); margin: 0;
   }
+  .post.li .post-day { color: var(--linkedin); }
+  .chips { display: flex; gap: 6px; flex: 0 0 auto; }
+  .chip { display: inline-flex; align-items: center; font-size: 10.5px; font-weight: 700; letter-spacing: .02em; padding: 3px 9px; border-radius: 999px; white-space: nowrap; }
+  .chip-ig { background: rgba(193,53,132,.12); color: #c13584; }
+  .chip-fb { background: rgba(24,119,242,.12); color: #1877f2; }
+  .chip-li { background: rgba(10,102,194,.12); color: #0a66c2; }
   .post-text { font-size: 15px; white-space: pre-wrap; }
-  .hashtags { margin-top: 10px; font-size: 13.5px; color: var(--linkedin); font-weight: 500; }
+  .hashtags { margin-top: 11px; font-size: 13.5px; color: #3d4f5c; font-weight: 500; line-height: 1.5; }
+  .post.li .hashtags { color: var(--linkedin); }
 
   /* LinkedIn variant */
   .post.li .post-day { color: var(--linkedin); }
@@ -303,12 +321,33 @@ function renderEmail(d, raw, kindLabel){
   </div>`;
 }
 
+function sectionIcon(kind){
+  if(kind==='social') return '<svg width="15" height="15" viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="18" height="18" rx="5" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="1.8"/><circle cx="17.3" cy="6.7" r="1.2" fill="currentColor"/></svg>';
+  if(kind==='li') return '<svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M6.94 7.5a1.94 1.94 0 11-.01-3.88 1.94 1.94 0 01.01 3.88zM5.3 9h3.3v9.7H5.3V9zm5.1 0h3.16v1.33h.05c.44-.83 1.5-1.7 3.1-1.7 3.3 0 3.9 2.17 3.9 5V18.7h-3.3v-4.5c0-1.07-.02-2.45-1.5-2.45-1.5 0-1.73 1.17-1.73 2.37v4.58h-3.3V9z"/></svg>';
+  return '<svg width="15" height="15" viewBox="0 0 24 24" fill="none"><rect x="3" y="5" width="18" height="14" rx="2" stroke="currentColor" stroke-width="1.8"/><path d="M4 7l8 6 8-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+}
+function sectionLabel(kind, text, count){
+  const cls = kind==='social'?'ic-social':(kind==='li'?'ic-li':'ic-mail');
+  const cnt = (count!=null)?`<span class="sl-count">${count}</span>`:'';
+  return `<div class="section-label"><span class="sl-ic ${cls}">${sectionIcon(kind)}</span><span class="sl-tx">${esc(text)}</span>${cnt}<span class="sl-line"></span></div>`;
+}
+
 function render(d){
   const status = String(d.status||'').toLowerCase();
   const isPending = (status === 'pending' || status === '');
   let pillCls='', pillTxt='Awaiting your approval';
   if(status==='approved'){ pillCls=' approved'; pillTxt='Approved'; }
   else if(status==='published'){ pillCls=' published'; pillTxt='Published & scheduled'; }
+
+  const caps = Array.isArray(d.captions)?d.captions:[];
+  const liPosts = Array.isArray(d.linkedinPosts)?d.linkedinPosts:[];
+  const hasNews = !!d.newsletter, hasPromo = !!d.promo;
+  const ov = [];
+  if(caps.length) ov.push(`<span class="ov-chip"><span class="ov-dot" style="background:var(--ember)"></span>${caps.length} Social</span>`);
+  if(liPosts.length) ov.push(`<span class="ov-chip"><span class="ov-dot" style="background:var(--linkedin)"></span>${liPosts.length} LinkedIn</span>`);
+  if(hasNews) ov.push(`<span class="ov-chip"><span class="ov-dot" style="background:#7fb6f0"></span>Newsletter</span>`);
+  if(hasPromo) ov.push(`<span class="ov-chip"><span class="ov-dot" style="background:#ffb87a"></span>Promo</span>`);
+
   let html = `
     <div class="banner-wrap">
       <img class="banner" src="https://openflame-ai.com/clients/openflame-ai/openflame-ai_email-banner.jpg?v=2" alt="OpenFlame AI">
@@ -319,6 +358,7 @@ function render(d){
       <h1>${esc(d.businessName)}</h1>
       <div class="sub">Week of ${esc(d.weekDate)}${d.revisionNumber>1?` · Revision ${d.revisionNumber}`:""}</div>
       <div class="status-pill${pillCls}">${pillTxt}</div>
+      ${ov.length?`<div class="overview">${ov.join('')}</div>`:''}
     </header>`;
 
   // Revision request (revisions only)
@@ -332,14 +372,14 @@ function render(d){
   }
 
   // Social posts
-  if (d.captions && d.captions.length){
-    html += `<div class="section-label">Social Posts · Instagram &amp; Facebook</div>`;
-    d.captions.forEach(c => {
+  if (caps.length){
+    html += sectionLabel('social', 'Social Posts', caps.length);
+    caps.forEach(c => {
       const {body, tags} = splitCaption(c.text);
       html += `<div class="post">`;
       if (c.photo && c.photo.url) html += `<img class="post-photo" src="${esc(c.photo.url)}" alt="${esc(c.day)} post">`;
       html += `<div class="post-body">
-        <div class="post-day">${esc(c.day)}</div>
+        <div class="post-head"><p class="post-day">${esc(c.day)}</p><div class="chips"><span class="chip chip-ig">Instagram</span><span class="chip chip-fb">Facebook</span></div></div>
         <div class="post-text">${esc(body)}</div>
         ${tags?`<div class="hashtags">${esc(tags)}</div>`:""}
       </div></div>`;
@@ -347,15 +387,15 @@ function render(d){
   }
 
   // LinkedIn
-  if (d.linkedinPosts && d.linkedinPosts.length){
-    html += `<div class="section-label">LinkedIn Posts</div>`;
-    d.linkedinPosts.forEach((p,i) => {
+  if (liPosts.length){
+    html += sectionLabel('li', 'LinkedIn Posts', liPosts.length);
+    liPosts.forEach((p,i) => {
       const {body, tags} = splitCaption(p.text);
       const liDay = ['Monday','Wednesday','Friday'][i] || ('Post '+(i+1));
       html += `<div class="post li">`;
       if (p.media && p.media.url) html += `<img class="post-photo" src="${esc(p.media.url)}" alt="LinkedIn post ${i+1}">`;
       html += `<div class="post-body">
-        <div class="post-day"><span class="li-badge">in</span>${esc(liDay)} · LinkedIn</div>
+        <div class="post-head"><p class="post-day">${esc(liDay)}</p><div class="chips"><span class="chip chip-li">LinkedIn</span></div></div>
         <div class="post-text">${esc(body)}</div>
         ${tags?`<div class="hashtags">${esc(tags)}</div>`:""}
       </div></div>`;
@@ -364,11 +404,11 @@ function render(d){
 
   // Emails
   if (d.newsletter){
-    html += `<div class="section-label">Weekly Newsletter</div>`;
+    html += sectionLabel('mail', 'Weekly Newsletter', null);
     html += renderEmail(d, d.newsletter, "Email · Newsletter");
   }
   if (d.promo){
-    html += `<div class="section-label">Promotional Email</div>`;
+    html += sectionLabel('mail', 'Promotional Email', null);
     html += renderEmail(d, d.promo, "Email · Promotion");
   }
 
