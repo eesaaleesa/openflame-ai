@@ -374,12 +374,13 @@ function render(d){
   // Social posts
   if (caps.length){
     html += sectionLabel('social', 'Social Posts', caps.length);
-    caps.forEach(c => {
+    caps.forEach((c, ci) => {
       const {body, tags} = splitCaption(c.text);
+      const capDay = c.day || ['Monday','Tuesday','Wednesday','Thursday','Friday'][ci] || ('Post ' + (ci + 1));
       html += `<div class="post">`;
-      if (c.photo && c.photo.url) html += `<img class="post-photo" src="${esc(c.photo.url)}" alt="${esc(c.day)} post">`;
+      if (c.photo && c.photo.url) html += `<img class="post-photo" src="${esc(c.photo.url)}" alt="${esc(capDay)} post">`;
       html += `<div class="post-body">
-        <div class="post-head"><p class="post-day">${esc(c.day)}</p><div class="chips"><span class="chip chip-ig">Instagram</span><span class="chip chip-fb">Facebook</span></div></div>
+        <div class="post-head"><p class="post-day">${esc(capDay)}</p><div class="chips"><span class="chip chip-ig">Instagram</span><span class="chip chip-fb">Facebook</span></div></div>
         <div class="post-text">${esc(body)}</div>
         ${tags?`<div class="hashtags">${esc(tags)}</div>`:""}
       </div></div>`;
