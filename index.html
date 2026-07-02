@@ -703,7 +703,23 @@
     .reveal-d1 { transition-delay: 0.1s; }
     .reveal-d2 { transition-delay: 0.2s; }
     .reveal-d3 { transition-delay: 0.3s; }
-  </style>
+    .samples { margin-top: clamp(2.5rem, 5vw, 4rem); }
+  .samples-head { margin-bottom: 1.4rem; }
+  .samples-label { font-family: var(--ff-head); font-size: .75rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--ember); margin-bottom: .4rem; }
+  .samples-sub { font-size: .95rem; color: var(--muted); margin: 0; max-width: 46ch; }
+  .samples-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.4rem; }
+  .sample-card { background: var(--white); border: 1px solid var(--border); border-radius: 10px; overflow: hidden; box-shadow: 0 1px 3px rgba(30,43,51,.06); transition: transform .16s ease, box-shadow .16s ease; }
+  @media (hover:hover){ .sample-card:hover { transform: translateY(-2px); box-shadow: 0 12px 28px rgba(30,43,51,.12); } }
+  .sample-photo { width: 100%; aspect-ratio: 4/3; object-fit: cover; display: block; background: var(--light); }
+  .sample-body { padding: 1rem 1.15rem 1.2rem; }
+  .sample-meta { display: flex; gap: 6px; margin-bottom: .7rem; }
+  .s-chip { display: inline-flex; align-items: center; font-family: var(--ff-head); font-size: .64rem; font-weight: 700; letter-spacing: .02em; padding: 3px 9px; border-radius: 999px; }
+  .s-ig { background: rgba(193,53,132,.10); color: #c13584; }
+  .s-fb { background: rgba(24,119,242,.10); color: #1877f2; }
+  .sample-text { font-size: .92rem; line-height: 1.6; color: var(--body); margin: 0 0 .7rem; white-space: pre-wrap; }
+  .sample-tags { font-size: .8rem; line-height: 1.5; color: var(--slate); font-weight: 500; margin: 0; }
+  @media (max-width: 720px){ .samples-grid { grid-template-columns: 1fr; } }
+</style>
   <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 </head>
 <body>
@@ -734,7 +750,7 @@
       <h1>Your content shows up.<br><em>Even when you can't.</em></h1>
       <p class="hero-sub">Done-for-you social media, newsletters, and email marketing built for independent businesses — powered by AI, reviewed by a human, and priced for owner-operators.</p>
       <div class="hero-actions">
-        <a href="/trial.html" class="btn-primary">
+        <a href="https://app.openflame-ai.com/trial.html" class="btn-primary">
           Get a Free Week of Content
           <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8H13M13 8L9 4M13 8L9 12" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </a>
@@ -878,6 +894,30 @@
           <div class="step-body">
             <h3>You Approve. We Publish.</h3>
             <p>Once a week, one email arrives in your inbox with everything ready to go — social posts, newsletter, and emails. You review it, reply to approve, and we handle the rest. Most clients are done in under 30 minutes.</p>
+          </div>
+        </div>
+      </div>
+      <div class="samples reveal reveal-d2">
+        <div class="samples-head">
+          <div class="samples-label">What that looks like</div>
+          <p class="samples-sub">Two posts from a sample week we built for a Portland smokehouse — their photos, their voice.</p>
+        </div>
+        <div class="samples-grid">
+          <div class="sample-card">
+            <img class="sample-photo" src="https://media.openflame-ai.com/maple-and-smoke/photos/menu-bacon-cheeseburger-fries-board.jpg" alt="Bacon cheeseburger and fries" loading="lazy">
+            <div class="sample-body">
+              <div class="sample-meta"><span class="s-chip s-ig">Instagram</span><span class="s-chip s-fb">Facebook</span></div>
+              <p class="sample-text">Bacon. Cheddar. Brioche that's actually toasted. 🔥 This isn't a complicated burger — it's just built right, every time. Crispy bacon with a real snap, melted cheddar that means it, cold lettuce for the contrast you didn't know you needed. 🍔 The fries are exactly what you think they are. Come hungry. We'll take care of the rest. 🍟</p>
+              <p class="sample-tags">#MapleAndSmoke #SEPortland #HawthornePDX #PDXBurgers #BaconCheeseburger #PortlandEats #PDXFood #BurgerNight #EatLocal #PortlandRestaurants #FoodPDX</p>
+            </div>
+          </div>
+          <div class="sample-card">
+            <img class="sample-photo" src="https://media.openflame-ai.com/maple-and-smoke/photos/open-kitchen-chef-grilling-burgers.jpg" alt="Chef grilling burgers in an open kitchen" loading="lazy">
+            <div class="sample-body">
+              <div class="sample-meta"><span class="s-chip s-ig">Instagram</span><span class="s-chip s-fb">Facebook</span></div>
+              <p class="sample-text">Flames up, orders in, zero hesitation. 🔥 This is what a Friday night looks like behind the line — our kitchen running full tilt, burgers hitting the grill, smoke doing exactly what it's supposed to do. Come in hungry. We'll take care of the rest. 🍔 Pull up a seat on Hawthorne and let the smell do the convincing. 😋</p>
+              <p class="sample-tags">#MapleAndSmoke #SEPortland #HawthornePDX #PDXEats #PortlandFood #BurgerNight #OpenKitchen #PDXFoodie #GrillSeason #PortlandRestaurants 🪵</p>
+            </div>
           </div>
         </div>
       </div>
